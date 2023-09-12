@@ -11,5 +11,4 @@ public class Bairro {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String bairro;
-    private String descricao;
 }

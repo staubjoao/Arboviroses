@@ -4,6 +4,7 @@ package br.com.api.controller;
 import br.com.api.model.Bairro;
 import br.com.api.repository.BairroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,10 @@ public class BairroController {
 
     private List<Bairro> getAll(){
         return repository.findAll();
+    }
+
+    private Bairro inserir(@RequestBody Bairro bairro) {
+        return repository.save(bairro);
     }
 
 }
