@@ -43,5 +43,4 @@ public class BairroController {
         repository.delete(bairro);
     }
 
-
 }
