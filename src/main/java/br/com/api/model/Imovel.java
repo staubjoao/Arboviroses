@@ -22,7 +22,7 @@ public class Imovel {
     @ManyToOne
     @JoinColumn(name="logradouro_id")
     private Logradouro logradouro;
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name="tipo_imovel_id")
     private TipoImovel tipoImovel;
 }

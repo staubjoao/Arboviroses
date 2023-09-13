@@ -17,8 +17,6 @@ public class BairroController {
 
     @GetMapping
     private List<Bairro> getAll(){
-        List<Bairro> bairros = repository.findAll();
-
         return repository.findAll();
     }
 
