@@ -5,14 +5,11 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Bairro {
+public class Cidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(nullable = false)
-    private String bairro;
-    @ManyToOne
-    @JoinColumn(name="cidade_id")
-    private Cidade cidade;
+    private String cidade;
 }

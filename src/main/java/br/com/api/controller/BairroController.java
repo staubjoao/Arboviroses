@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/bairro")
+@RequestMapping("/api/bairro")
 public class BairroController {
 
     @Autowired
@@ -17,6 +17,8 @@ public class BairroController {
 
     @GetMapping
     private List<Bairro> getAll(){
+        List<Bairro> bairros = repository.findAll();
+
         return repository.findAll();
     }
 
