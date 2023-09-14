@@ -7,14 +7,16 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name="logradouros")
 public class Logradouro {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="logradouro_id")
     private Integer id;
     @Column
     private String logradouro;
-    @OneToMany(mappedBy = "logradouro")
-    private List<Imovel> imoveis;
+//    @OneToMany(mappedBy = "logradouros")
+//    private List<Imovel> imoveis;
 
 }
