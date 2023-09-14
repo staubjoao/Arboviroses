@@ -9,4 +9,5 @@ public class ImovelRequest {
     public Integer bairro_id;
     public Integer logradouro_id;
     public Integer tipo_imovel_id;
+    public Integer quarteirao_id;
 }
