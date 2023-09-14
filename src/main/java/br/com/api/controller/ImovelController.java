@@ -35,6 +35,8 @@ public class ImovelController {
     @PostMapping
     private Imovel inserirImovel(@RequestBody ImovelRequest imovelRequest) {
         Bairro bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
+        Logradouro logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
+        TipoImovel tipoImovel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
 
         Imovel imovel = new Imovel();
         imovel.setId(imovelRequest.id);
@@ -42,6 +44,8 @@ public class ImovelController {
         imovel.setLocalidade(imovelRequest.localidade);
         imovel.setComplemento(imovelRequest.complemento);
         imovel.setBairro(bairro);
+        imovel.setLogradouro(logradouro);
+        imovel.setTipoImovel(tipoImovel);
         return imovelRepository.save(imovel);
     }
 

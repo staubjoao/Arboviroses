@@ -7,4 +7,6 @@ public class ImovelRequest {
     public String numero;
     public String complemento;
     public Integer bairro_id;
+    public Integer logradouro_id;
+    public Integer tipo_imovel_id;
 }

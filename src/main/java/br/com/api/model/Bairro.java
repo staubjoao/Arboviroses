@@ -19,7 +19,7 @@ public class Bairro {
     private String bairro;
     @JsonIgnore
     @OneToMany
-    @JoinColumn(name="bairro_id")
+    @JoinColumn(name="fk_bairro_id")
     private List<Imovel> imoveis;
 
 }

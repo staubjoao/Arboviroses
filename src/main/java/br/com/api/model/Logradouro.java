@@ -1,5 +1,6 @@
 package br.com.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +17,9 @@ public class Logradouro {
     private Integer id;
     @Column
     private String logradouro;
-//    @OneToMany(mappedBy = "logradouros")
-//    private List<Imovel> imoveis;
+    @JsonIgnore
+    @OneToMany
+    @JoinColumn(name="fk_logradouro_id")
+    private List<Imovel> imoveis;
 
 }
