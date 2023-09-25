@@ -1,7 +1,7 @@
 package br.com.api.controller;
 
 
-import br.com.api.model.Bairro;
+import br.com.api.model.BairroModel;
 import br.com.api.repository.BairroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,29 +16,29 @@ public class BairroController {
     private BairroRepository bairroRepository;
 
     @GetMapping
-    private List<Bairro> getAll(){
+    private List<BairroModel> getAll(){
         return bairroRepository.findAll();
     }
 
     @PostMapping
-    private Bairro inserirBairro(@RequestBody Bairro bairro) {
-        return bairroRepository.save(bairro);
+    private BairroModel inserirBairro(@RequestBody BairroModel bairroModel) {
+        return bairroRepository.save(bairroModel);
     }
 
     @GetMapping("/{id}")
-    private Bairro getBairro(@PathVariable Integer id) {
+    private BairroModel getBairro(@PathVariable Integer id) {
         return  bairroRepository.findById(id).get();
     }
 
     @PutMapping
-    private Bairro alterarBairro(@RequestBody Bairro bairro) {
-        return bairroRepository.save(bairro);
+    private BairroModel alterarBairro(@RequestBody BairroModel bairroModel) {
+        return bairroRepository.save(bairroModel);
     }
 
     @DeleteMapping("/{id}")
     private void deleteBairro(@PathVariable Integer id) {
-        Bairro bairro = bairroRepository.findById(id).get();
-        bairroRepository.delete(bairro);
+        BairroModel bairroModel = bairroRepository.findById(id).get();
+        bairroRepository.delete(bairroModel);
     }
 
 }

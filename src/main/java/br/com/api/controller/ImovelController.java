@@ -1,6 +1,6 @@
 package br.com.api.controller;
 
-import br.com.api.model.Bairro;
+import br.com.api.model.BairroModel;
 import br.com.api.model.Imovel;
 import br.com.api.model.TipoImovel;
 import br.com.api.model.Logradouro;
@@ -34,7 +34,7 @@ public class ImovelController {
 
     @PostMapping
     private Imovel inserirImovel(@RequestBody ImovelRequest imovelRequest) {
-        Bairro bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
+        BairroModel bairroModel = bairroRepository.findById(imovelRequest.bairro_id).get();
         Logradouro logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
         TipoImovel tipoImovel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
 
@@ -43,7 +43,7 @@ public class ImovelController {
         imovel.setNumero(imovelRequest.numero);
         imovel.setLocalidade(imovelRequest.localidade);
         imovel.setComplemento(imovelRequest.complemento);
-        imovel.setBairro(bairro);
+        imovel.setBairroModel(bairroModel);
         imovel.setLogradouro(logradouro);
         imovel.setTipoImovel(tipoImovel);
         return imovelRepository.save(imovel);

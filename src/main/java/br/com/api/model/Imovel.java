@@ -1,6 +1,6 @@
 package br.com.api.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 @Data
@@ -20,7 +20,7 @@ public class Imovel {
     private String complemento;
     @ManyToOne
     @JoinColumn(name="fk_bairro_id")
-    private Bairro bairro;
+    private BairroModel bairroModel;
     @ManyToOne
     @JoinColumn(name="fk_logradouro_id")
     private Logradouro logradouro;
