@@ -23,7 +23,7 @@ public class Imovel {
     private BairroModel bairroModel;
     @ManyToOne
     @JoinColumn(name="fk_logradouro_id")
-    private Logradouro logradouro;
+    private LogradouroModel logradouroModel;
     @ManyToOne
     @JoinColumn(name="fk_tipo_imovel_id")
     private TipoImovel tipoImovel;
