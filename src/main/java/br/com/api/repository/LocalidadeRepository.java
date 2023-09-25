@@ -1,8 +1,10 @@
 package br.com.api.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.api.model.Localidade;
+import br.com.api.model.LocalidadeModel;
+import org.springframework.stereotype.Repository;
 
-public interface LocalidadeRepository extends JpaRepository<Localidade, Integer> {
+@Repository
+public interface LocalidadeRepository extends JpaRepository<LocalidadeModel, Integer> {
     
 }

@@ -1,15 +1,21 @@
 package br.com.api.model;
 
+import br.com.api.dtos.LogradouroDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="logradouros")
-public class Logradouro {
+public class LogradouroModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +28,7 @@ public class Logradouro {
     @JoinColumn(name="fk_logradouro_id")
     private List<Imovel> imoveis;
 
+    public LogradouroModel(LogradouroDTO logradouroDTO) {
+        this.logradouro = logradouroDTO.getLogradouro();
+    }
 }

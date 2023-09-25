@@ -1,44 +1,68 @@
 package br.com.api.controller;
 
 
-import br.com.api.model.Bairro;
+import br.com.api.dtos.BairroDTO;
+import br.com.api.model.BairroModel;
 import br.com.api.repository.BairroRepository;
+import br.com.api.services.BairroService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/bairro")
 public class BairroController {
 
     @Autowired
-    private BairroRepository bairroRepository;
+    private BairroService bairroService;
 
-    @GetMapping
-    private List<Bairro> getAll(){
-        return bairroRepository.findAll();
+    @GetMapping("/todos")
+    public ResponseEntity<List<BairroModel>> listarTodos(){
+        return ResponseEntity.status(HttpStatus.OK).body(bairroService.getAll());
     }
 
-    @PostMapping
-    private Bairro inserirBairro(@RequestBody Bairro bairro) {
-        return bairroRepository.save(bairro);
+    @PostMapping("/novo")
+    public ResponseEntity<Object> iserirBairro(@RequestBody @Valid BairroDTO bairroDTO){
+        var bairroModel = new BairroModel(bairroDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(bairroService.save(bairroModel));
     }
 
     @GetMapping("/{id}")
-    private Bairro getBairro(@PathVariable Integer id) {
-        return  bairroRepository.findById(id).get();
+    public ResponseEntity<Object> listaUmUsuario(@PathVariable(value = "id") int id) {
+        Optional<BairroModel> bairroModelOptional = bairroService.buscaId(id);
+        if(!bairroModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(bairroModelOptional);
     }
 
-    @PutMapping
-    private Bairro alterarBairro(@RequestBody Bairro bairro) {
-        return bairroRepository.save(bairro);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deletarBairro(@PathVariable(value = "id") int id){
+        Optional<BairroModel> bairroModelOptional = bairroService.buscaId(id);
+        if (!bairroModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
+        }
+        bairroService.delete(bairroModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Bairro deletado com sucesso!!");
     }
 
-    @DeleteMapping("/{id}")
-    private void deleteBairro(@PathVariable Integer id) {
-        Bairro bairro = bairroRepository.findById(id).get();
-        bairroRepository.delete(bairro);
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<Object> editarBairro(@PathVariable(value = "id") int id,
+                                               @RequestBody @Valid BairroDTO bairroDTO){
+        Optional<BairroModel> bairroModelOptional = bairroService.buscaId(id);
+        if (!bairroModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
+        }
+        var bairroModel = new BairroModel();
+        BeanUtils.copyProperties(bairroDTO, bairroModel);
+        bairroModel.setId(bairroModelOptional.get().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(bairroService.save(bairroModel));
     }
 
 }
