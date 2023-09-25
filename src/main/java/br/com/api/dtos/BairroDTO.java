@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class BairroDTO {
     @NotBlank
-    private String nome;
+    private String bairro;
 }
