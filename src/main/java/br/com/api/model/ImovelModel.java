@@ -28,7 +28,7 @@ public class ImovelModel {
     @ManyToOne
     @JoinColumn(name = "fk_tipo_imovel_id")
     private TipoImovelModel tipoImovelModel;
-//    @ManyToOne
-//    @JoinColumn(name="fk_quarteirao_id")
-//    private QuarteiraoModel quarteiraoModel;
+    @ManyToOne
+    @JoinColumn(name="fk_quarteirao_id")
+    private QuarteiraoModel quarteiraoModel;
 }

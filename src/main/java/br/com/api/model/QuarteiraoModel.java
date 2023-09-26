@@ -1,10 +1,10 @@
 package br.com.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.List;
+
 
 @Data
 @Entity
@@ -17,8 +17,9 @@ public class QuarteiraoModel {
     private Integer id;
     @Column
     private Integer numero;
-//    @JsonIgnore
-//    @OneToMany
-//    @JoinColumn(name="fk_quarteirao_id")
-//    private List<ImovelModel> imoveis;
+    @Column
+    private String localidade;
+    @OneToMany
+    @JoinColumn(name = "fk_quarteirao_id")
+    private List<ImovelModel> imoveis;
 }
