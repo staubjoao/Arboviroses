@@ -1,8 +1,6 @@
 package br.com.api.services;
 
-import br.com.api.model.BairroModel;
 import br.com.api.model.LocalidadeModel;
-import br.com.api.repository.BairroRepository;
 import br.com.api.repository.LocalidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

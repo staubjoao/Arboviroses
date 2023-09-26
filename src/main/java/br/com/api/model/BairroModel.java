@@ -23,7 +23,7 @@ public class BairroModel {
     @JsonIgnore
     @OneToMany
     @JoinColumn(name="fk_bairro_id")
-    private List<Imovel> imoveis;
+    private List<ImovelModel> imoveis;
 
     public BairroModel(BairroDTO bairroDTO) {
         this.bairro = bairroDTO.getBairro();

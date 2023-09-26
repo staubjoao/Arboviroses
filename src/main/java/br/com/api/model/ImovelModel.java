@@ -1,16 +1,17 @@
 package br.com.api.model;
 
 import javax.persistence.*;
+
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="imoveis")
-public class Imovel {
+@Table(name = "imoveis")
+public class ImovelModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="imovel_id")
+    @Column(name = "imovel_id")
     private Integer id;
     @Column
     private String localidade;
@@ -19,15 +20,15 @@ public class Imovel {
     @Column
     private String complemento;
     @ManyToOne
-    @JoinColumn(name="fk_bairro_id")
+    @JoinColumn(name = "fk_bairro_id")
     private BairroModel bairroModel;
     @ManyToOne
-    @JoinColumn(name="fk_logradouro_id")
+    @JoinColumn(name = "fk_logradouro_id")
     private LogradouroModel logradouroModel;
     @ManyToOne
-    @JoinColumn(name="fk_tipo_imovel_id")
-    private TipoImovel tipoImovel;
-    @ManyToOne
-    @JoinColumn(name="fk_quarteirao_id")
-    private Quarteirao quarteirao;
+    @JoinColumn(name = "fk_tipo_imovel_id")
+    private TipoImovelModel tipoImovelModel;
+//    @ManyToOne
+//    @JoinColumn(name="fk_quarteirao_id")
+//    private QuarteiraoModel quarteiraoModel;
 }

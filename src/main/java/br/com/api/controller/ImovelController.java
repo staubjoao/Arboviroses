@@ -24,56 +24,56 @@ public class ImovelController {
     private QuarteiraoRepository quarteiraoRepository;
 
     @GetMapping
-    private List<Imovel> getAll() {
+    private List<ImovelModel> getAll() {
         return imovelRepository.findAll();
     }
 
     @PostMapping
-    private Imovel inserirImovel(@RequestBody ImovelRequest imovelRequest) {
-        Bairro bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
-        Logradouro logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
-        TipoImovel tipoImovel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
-        Quarteirao quarteirao = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
+    private ImovelModel inserirImovel(@RequestBody ImovelRequest imovelRequest) {
+        BairroModel bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
+        LogradouroModel logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
+        TipoImovelModel tipoImovelModel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
+        QuarteiraoModel quarteiraoModel = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
 
-        Imovel imovel = new Imovel();
-        imovel.setId(imovelRequest.id);
-        imovel.setNumero(imovelRequest.numero);
-        imovel.setLocalidade(imovelRequest.localidade);
-        imovel.setComplemento(imovelRequest.complemento);
-        imovel.setBairro(bairro);
-        imovel.setLogradouro(logradouro);
-        imovel.setTipoImovel(tipoImovel);
-        imovel.setQuarteirao(quarteirao);
-        return imovelRepository.save(imovel);
+        ImovelModel imovelModel = new ImovelModel();
+        imovelModel.setId(imovelRequest.id);
+        imovelModel.setNumero(imovelRequest.numero);
+        imovelModel.setLocalidade(imovelRequest.localidade);
+        imovelModel.setComplemento(imovelRequest.complemento);
+        imovelModel.setBairroModel(bairro);
+        imovelModel.setLogradouroModel(logradouro);
+        imovelModel.setTipoImovelModel(tipoImovelModel);
+        imovelModel.setQuarteiraoModel(quarteiraoModel);
+        return imovelRepository.save(imovelModel);
     }
 
     @PutMapping
-    private Imovel getImovel(@RequestBody ImovelRequest imovelRequest) {
-        Bairro bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
-        Logradouro logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
-        TipoImovel tipoImovel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
-        Quarteirao quarteirao = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
+    private ImovelModel getImovel(@RequestBody ImovelRequest imovelRequest) {
+        BairroModel bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
+        LogradouroModel logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
+        TipoImovelModel tipoImovelModel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
+        QuarteiraoModel quarteiraoModel = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
 
-        Imovel imovel = new Imovel();
-        imovel.setId(imovelRequest.id);
-        imovel.setNumero(imovelRequest.numero);
-        imovel.setLocalidade(imovelRequest.localidade);
-        imovel.setComplemento(imovelRequest.complemento);
-        imovel.setBairro(bairro);
-        imovel.setLogradouro(logradouro);
-        imovel.setTipoImovel(tipoImovel);
-        imovel.setQuarteirao(quarteirao);
-        return imovelRepository.save(imovel);
+        ImovelModel imovelModel = new ImovelModel();
+        imovelModel.setId(imovelRequest.id);
+        imovelModel.setNumero(imovelRequest.numero);
+        imovelModel.setLocalidade(imovelRequest.localidade);
+        imovelModel.setComplemento(imovelRequest.complemento);
+        imovelModel.setBairroModel(bairro);
+        imovelModel.setLogradouroModel(logradouro);
+        imovelModel.setTipoImovelModel(tipoImovelModel);
+        imovelModel.setQuarteiraoModel(quarteiraoModel);
+        return imovelRepository.save(imovelModel);
     }
 
     @DeleteMapping("/{id}")
     private void deletarImovel(@PathVariable Integer id) {
-        Imovel imovel = imovelRepository.findById(id).get();
-        imovelRepository.delete(imovel);
+        ImovelModel imovelModel = imovelRepository.findById(id).get();
+        imovelRepository.delete(imovelModel);
     }
 
     @GetMapping("/{id}")
-    private Imovel getImovel(@PathVariable Integer id) {
+    private ImovelModel getImovel(@PathVariable Integer id) {
         return imovelRepository.findById(id).get();
     }
 }

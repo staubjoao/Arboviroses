@@ -26,7 +26,7 @@ public class LogradouroModel {
     @JsonIgnore
     @OneToMany
     @JoinColumn(name="fk_logradouro_id")
-    private List<Imovel> imoveis;
+    private List<ImovelModel> imoveis;
 
     public LogradouroModel(LogradouroDTO logradouroDTO) {
         this.logradouro = logradouroDTO.getLogradouro();

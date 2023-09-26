@@ -8,18 +8,17 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="quarteiroes")
-public class Quarteirao {
+@Table(name = "quarteiroes")
+public class QuarteiraoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="quarteirao_id")
+    @Column(name = "quarteirao_id")
     private Integer id;
     @Column
     private Integer numero;
-    @JsonIgnore
-    @OneToMany
-    @JoinColumn(name="fk_quarteirao_id")
-    private List<Imovel> imoveis;
-
+//    @JsonIgnore
+//    @OneToMany
+//    @JoinColumn(name="fk_quarteirao_id")
+//    private List<ImovelModel> imoveis;
 }
