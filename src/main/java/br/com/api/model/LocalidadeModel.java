@@ -1,45 +1,40 @@
 package br.com.api.model;
 
-import br.com.api.dtos.LocalidadeDTO;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Id;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name="localidades")
 public class LocalidadeModel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false, length = 400)
+    @Valid
     private String descricao;
 
-    @Column
+    @Column(nullable = false, length = 100)
+    @Valid
     private String estrato;
 
-    @Column
+    @Column(nullable = false, length = 100)
+    @Valid
     private String categoria;
 
-    @Column
-    private String zona;
+    @ManyToOne
+    @JoinColumn(name = "bairro_id")
+    @Valid
+    @NotNull(message = "{campo.bairro.obrigatorio}")
+    private BairroModel bairro;
 
-    public LocalidadeModel(LocalidadeDTO localidadeDTO) {
-        this.descricao = localidadeDTO.getDescricao();
-        this.categoria = localidadeDTO.getCategoria();
-        this.estrato = localidadeDTO.getEstrato();
-        this.zona = localidadeDTO.getZona();
-    }
-
-    @Override
-    public String toString() {
-        return "Localidade [categoria=" + categoria + ", descricao=" + descricao + ", estrato=" + estrato + ", id=" + id
-                + "]";
-    }
 }

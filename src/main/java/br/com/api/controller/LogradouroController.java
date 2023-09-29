@@ -1,8 +1,6 @@
 package br.com.api.controller;
 
-import br.com.api.dtos.BairroDTO;
 import br.com.api.dtos.LogradouroDTO;
-import br.com.api.model.BairroModel;
 import br.com.api.model.LogradouroModel;
 import br.com.api.services.LogradouroService;
 import org.springframework.beans.BeanUtils;

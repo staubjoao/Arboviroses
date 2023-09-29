@@ -1,6 +1,5 @@
 package br.com.api.services;
 
-import br.com.api.model.BairroModel;
 import br.com.api.model.LogradouroModel;
 import br.com.api.repository.LogradouroRepository;
 import org.springframework.beans.factory.annotation.Autowired;

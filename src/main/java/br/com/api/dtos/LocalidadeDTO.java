@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 
 @Getter
 @Setter

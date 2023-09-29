@@ -1,32 +1,16 @@
 package br.com.api.services;
 
-import br.com.api.model.BairroModel;
-import br.com.api.repository.BairroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import br.com.api.model.BairroModel;
+
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class BairroService {
-    @Autowired
-    BairroRepository bairroRepository;
+public interface BairroService {
 
-    @Transactional
-    public BairroModel save(BairroModel bairroModel){
-        return  bairroRepository.save(bairroModel);
-    }
-    public List<BairroModel> getAll() {
-        return bairroRepository.findAll();
-    }
-
-    public Optional<BairroModel> buscaId(int id) {
-        return bairroRepository.findById(id);
-    }
-    @Transactional
-    public void delete(BairroModel bairroModel) {
-        bairroRepository.delete(bairroModel);
-    }
+    public BairroModel save(BairroModel bairro);
+    public List<BairroModel> getAll();
+    public BairroModel getById(Integer id);
+    public void delete(BairroModel bairro);
 }
