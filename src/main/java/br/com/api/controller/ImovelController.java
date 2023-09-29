@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/imovel")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ImovelController {
 
     @Autowired
