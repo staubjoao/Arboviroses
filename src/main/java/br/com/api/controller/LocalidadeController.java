@@ -79,20 +79,47 @@ public class LocalidadeController {
     }
 
     @GetMapping("/{id}")
-    public LocalidadeModel getById(@PathVariable Integer id)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Response<LocalidadeModel>> getById(@PathVariable Integer id)
     {
-        return service.getById(id);
+        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
+        LocalidadeModel localidade = service.getById(id);
+        response.setData(localidade);
+
+        if(localidade == null)
+        {
+            response.getErrors().add("{campo.localidade.invalido}");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        service.getById(id);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    public List<LocalidadeModel> getAll()
+    @ResponseStatus(HttpStatus.CREATED)    
+    public ResponseEntity<List<LocalidadeModel>> getAll()
     {
-        return service.getAll();
+        List<LocalidadeModel> localidade = service.getAll();
+        return ResponseEntity.ok(localidade);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void delete(@PathVariable Integer id, BindingResult result)
     {   
+        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
+
+        if(result.hasErrors())
+        {
+            for(ObjectError errors: result.getAllErrors())
+            {
+                response.getErrors().add(errors.getDefaultMessage());
+            }
+
+            ResponseEntity.badRequest().body(response);
+        }
+
         LocalidadeModel obj = service.getById(id);
         service.delete(obj);
     }

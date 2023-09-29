@@ -76,20 +76,48 @@ public class BairroController {
     }
 
     @GetMapping("/{id}")
-    public BairroModel getById(@PathVariable Integer id)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Response<BairroModel>> getById(@PathVariable Integer id)
     {
-        return service.getById(id);
+        Response<BairroModel> response = new Response<BairroModel>();
+        BairroModel bairro = service.getById(id);
+        response.setData(bairro);
+
+        if(bairro == null)
+        {
+            response.getErrors().add("{campo.bairro.invalido}");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        service.getById(id);
+        return ResponseEntity.ok(response);
+     
     }
 
     @GetMapping
-    public List<BairroModel> getAll()
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<List<BairroModel>> getAll()
     {
-        return service.getAll();
+        List<BairroModel> bairro = service.getAll();
+        return ResponseEntity.ok(bairro);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void delete(@PathVariable Integer id, BindingResult result)
     {
+        Response<BairroModel> response = new Response<BairroModel>();
+
+        if(result.hasErrors())
+        {
+            for(ObjectError errors: result.getAllErrors())
+            {
+                response.getErrors().add(errors.getDefaultMessage());
+            }
+
+            ResponseEntity.badRequest().body(response);
+        }
+
         BairroModel bairro = service.getById(id);
         service.delete(bairro);
     }
