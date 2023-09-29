@@ -22,10 +22,6 @@ public class Bairro {
     private Integer Id;
     @Column(nullable = false)
     private String bairro;
-    @JsonIgnore
-    @OneToMany
-    @JoinColumn(name = "fk_bairro_id")
-    private List<Imovel> imoveis;
 
     public Bairro(BairroDTO bairroDTO) {
         this.bairro = bairroDTO.getBairro();

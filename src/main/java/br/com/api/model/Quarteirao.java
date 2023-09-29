@@ -19,7 +19,4 @@ public class Quarteirao {
     private Integer numero;
     @Column
     private String localidade;
-    @OneToMany
-    @JoinColumn(name = "fk_quarteirao_id")
-    private List<Imovel> imoveis;
 }

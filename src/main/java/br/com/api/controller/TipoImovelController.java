@@ -1,8 +1,14 @@
 package br.com.api.controller;
 
 import br.com.api.model.TipoImovel;
+import br.com.api.responses.Response;
 import br.com.api.services.impl.TipoImovelServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +22,21 @@ public class TipoImovelController {
     private TipoImovelServiceImpl serviceTipoImovel;
 
     @PostMapping
-    private TipoImovel inserirTipoImovel(@RequestBody TipoImovel tipoImovel) {
-        return serviceTipoImovel.save(tipoImovel);
+    @ResponseStatus(HttpStatus.CREATED)
+    private ResponseEntity<Response<TipoImovel>> inserir(
+            @Valid @RequestBody TipoImovel tipoImovel, BindingResult result) {
+
+        Response<TipoImovel> response = new Response<TipoImovel>();
+        response.setData(tipoImovel);
+        if (result.hasErrors()) {
+            for (ObjectError erros : result.getAllErrors()) {
+                response.getErrors().add(erros.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(response);
+        }
+        serviceTipoImovel.save(tipoImovel);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -26,7 +45,7 @@ public class TipoImovelController {
     }
 
     @GetMapping("/{id}")
-    private TipoImovel getTipoImovel(@PathVariable Integer id ) {
+    private TipoImovel getTipoImovel(@PathVariable Integer id) {
         return serviceTipoImovel.getById(id);
     }
 

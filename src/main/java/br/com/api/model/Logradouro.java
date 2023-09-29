@@ -23,10 +23,6 @@ public class Logradouro {
     private Integer id;
     @Column
     private String logradouro;
-    @JsonIgnore
-    @OneToMany
-    @JoinColumn(name="fk_logradouro_id")
-    private List<Imovel> imoveis;
 
     public Logradouro(LogradouroDTO logradouroDTO) {
         this.logradouro = logradouroDTO.getLogradouro();
