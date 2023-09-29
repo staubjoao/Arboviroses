@@ -4,9 +4,11 @@ import br.com.api.model.Imovel;
 import br.com.api.repository.ImovelRepository;
 import br.com.api.services.ImovelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ImovelServiceImpl implements ImovelService {
     @Autowired
     private ImovelRepository imovelRepository;

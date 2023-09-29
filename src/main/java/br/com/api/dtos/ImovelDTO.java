@@ -9,6 +9,8 @@ import lombok.Setter;
 public class ImovelDTO {
 
     @NotBlank
+    private Integer id;
+    @NotBlank
     private String localidade;
     @NotBlank
     private String numero;
