@@ -1,6 +1,6 @@
 package br.com.api.services.impl;
 
-import br.com.api.model.TipoImovelModel;
+import br.com.api.model.TipoImovel;
 import br.com.api.repository.TipoImovelRepository;
 import br.com.api.services.TipoImovelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,27 +14,27 @@ public class TipoImovelServiceImpl implements TipoImovelService {
     private TipoImovelRepository tipoImovelRepository;
 
     @Override
-    public TipoImovelModel save(TipoImovelModel tipoImovelModel) {
-        return tipoImovelRepository.save(tipoImovelModel);
+    public TipoImovel save(TipoImovel tipoImovel) {
+        return tipoImovelRepository.save(tipoImovel);
     }
 
     @Override
-    public List<TipoImovelModel> getAll() {
+    public List<TipoImovel> getAll() {
         return tipoImovelRepository.findAll();
     }
 
     @Override
-    public TipoImovelModel getById(Integer id) {
+    public TipoImovel getById(Integer id) {
         return tipoImovelRepository.findById(id).get();
     }
 
     @Override
-    public void delete(TipoImovelModel tipoImovelModel) {
-        tipoImovelRepository.delete(tipoImovelModel);
+    public void delete(TipoImovel tipoImovel) {
+        tipoImovelRepository.delete(tipoImovel);
     }
 
     @Override
-    public TipoImovelModel put(TipoImovelModel tipoImovelModel) {
-        return tipoImovelRepository.save(tipoImovelModel);
+    public TipoImovel put(TipoImovel tipoImovel) {
+        return tipoImovelRepository.save(tipoImovel);
     }
 }

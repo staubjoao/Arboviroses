@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="localidades")
-public class LocalidadeModel {
+public class Localidade {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class LocalidadeModel {
     @Column
     private String zona;
 
-    public LocalidadeModel(LocalidadeDTO localidadeDTO) {
+    public Localidade(LocalidadeDTO localidadeDTO) {
         this.descricao = localidadeDTO.getDescricao();
         this.categoria = localidadeDTO.getCategoria();
         this.estrato = localidadeDTO.getEstrato();

@@ -2,8 +2,7 @@ package br.com.api.controller;
 
 
 import br.com.api.dtos.BairroDTO;
-import br.com.api.model.BairroModel;
-import br.com.api.repository.BairroRepository;
+import br.com.api.model.Bairro;
 import br.com.api.services.BairroService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +22,19 @@ public class BairroController {
     private BairroService bairroService;
 
     @GetMapping("/todos")
-    public ResponseEntity<List<BairroModel>> listarTodos(){
+    public ResponseEntity<List<Bairro>> listarTodos(){
         return ResponseEntity.status(HttpStatus.OK).body(bairroService.getAll());
     }
 
     @PostMapping("/novo")
     public ResponseEntity<Object> iserirBairro(@RequestBody @Valid BairroDTO bairroDTO){
-        var bairroModel = new BairroModel(bairroDTO);
+        var bairroModel = new Bairro(bairroDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(bairroService.save(bairroModel));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> listaUmUsuario(@PathVariable(value = "id") int id) {
-        Optional<BairroModel> bairroModelOptional = bairroService.buscaId(id);
+        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
         if(!bairroModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
         }
@@ -44,7 +43,7 @@ public class BairroController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deletarBairro(@PathVariable(value = "id") int id){
-        Optional<BairroModel> bairroModelOptional = bairroService.buscaId(id);
+        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
         if (!bairroModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
         }
@@ -55,11 +54,11 @@ public class BairroController {
     @PutMapping("/editar/{id}")
     public ResponseEntity<Object> editarBairro(@PathVariable(value = "id") int id,
                                                @RequestBody @Valid BairroDTO bairroDTO){
-        Optional<BairroModel> bairroModelOptional = bairroService.buscaId(id);
+        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
         if (!bairroModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
         }
-        var bairroModel = new BairroModel();
+        var bairroModel = new Bairro();
         BeanUtils.copyProperties(bairroDTO, bairroModel);
         bairroModel.setId(bairroModelOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body(bairroService.save(bairroModel));

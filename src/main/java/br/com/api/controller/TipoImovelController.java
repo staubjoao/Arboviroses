@@ -1,7 +1,6 @@
 package br.com.api.controller;
 
-import br.com.api.model.TipoImovelModel;
-import br.com.api.repository.TipoImovelRepository;
+import br.com.api.model.TipoImovel;
 import br.com.api.services.impl.TipoImovelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,29 +16,29 @@ public class TipoImovelController {
     private TipoImovelServiceImpl serviceTipoImovel;
 
     @PostMapping
-    private TipoImovelModel inserirTipoImovel(@RequestBody TipoImovelModel tipoImovelModel) {
-        return serviceTipoImovel.save(tipoImovelModel);
+    private TipoImovel inserirTipoImovel(@RequestBody TipoImovel tipoImovel) {
+        return serviceTipoImovel.save(tipoImovel);
     }
 
     @GetMapping
-    private List<TipoImovelModel> getAll() {
+    private List<TipoImovel> getAll() {
         return serviceTipoImovel.getAll();
     }
 
     @GetMapping("/{id}")
-    private TipoImovelModel getTipoImovel(@PathVariable Integer id ) {
+    private TipoImovel getTipoImovel(@PathVariable Integer id ) {
         return serviceTipoImovel.getById(id);
     }
 
     @PutMapping
-    private TipoImovelModel alterarTipoImovel(@RequestBody TipoImovelModel tipoImovelModel) {
-        return serviceTipoImovel.put(tipoImovelModel);
+    private TipoImovel alterarTipoImovel(@RequestBody TipoImovel tipoImovel) {
+        return serviceTipoImovel.put(tipoImovel);
     }
 
     @DeleteMapping("/{id}")
     private void deletarTipoImovel(@PathVariable Integer id) {
-        TipoImovelModel tipoImovelModel = serviceTipoImovel.getById(id);
-        serviceTipoImovel.delete(tipoImovelModel);
+        TipoImovel tipoImovel = serviceTipoImovel.getById(id);
+        serviceTipoImovel.delete(tipoImovel);
     }
 
 }

@@ -1,21 +1,20 @@
 package br.com.api.services;
 
-import br.com.api.model.TipoImovelModel;
+import br.com.api.model.TipoImovel;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 @Service
 public interface TipoImovelService {
 
-    public TipoImovelModel save(TipoImovelModel tipoImovelModel);
+    public TipoImovel save(TipoImovel tipoImovel);
 
-    public List<TipoImovelModel> getAll();
+    public List<TipoImovel> getAll();
 
-    public TipoImovelModel getById(Integer id);
+    public TipoImovel getById(Integer id);
 
-    public void delete(TipoImovelModel tipoImovelModel);
+    public void delete(TipoImovel tipoImovel);
 
-    public TipoImovelModel put(TipoImovelModel tipoImovelModel);
+    public TipoImovel put(TipoImovel tipoImovel);
 }
