@@ -20,15 +20,12 @@ public class ImovelModel {
     @Column
     private String complemento;
     @ManyToOne
-    @JoinColumn(name = "fk_bairro_id")
-    private BairroModel bairroModel;
-    @ManyToOne
     @JoinColumn(name = "fk_logradouro_id")
-    private LogradouroModel logradouroModel;
+    private Logradouro logradouro;
     @ManyToOne
     @JoinColumn(name = "fk_tipo_imovel_id")
     private TipoImovelModel tipoImovelModel;
     @ManyToOne
     @JoinColumn(name="fk_quarteirao_id")
-    private QuarteiraoModel quarteiraoModel;
+    private Quarteirao quarteirao;
 }

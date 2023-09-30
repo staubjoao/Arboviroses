@@ -1,21 +1,24 @@
 package br.com.api.model;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import javax.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import jakarta.persistence.GenerationType;
+import lombok.NoArgsConstructor;
 
-@Entity
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="bairros")
 public class BairroModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="bairro_id")
     private Integer id;
 
     @Column(nullable = false, length = 100)
