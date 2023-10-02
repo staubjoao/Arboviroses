@@ -3,7 +3,7 @@ package br.com.api.serviceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.api.model.LocalidadeModel;
+import br.com.api.model.Localidade;
 import br.com.api.repository.LocalidadeRepository;
 import br.com.api.services.LocalidadeService;
 
@@ -16,22 +16,22 @@ public class LocalidadeServiceImpl implements LocalidadeService{
     private LocalidadeRepository repository;
 
     @Override
-    public LocalidadeModel save(LocalidadeModel localidade) {
+    public Localidade save(Localidade localidade) {
         return repository.save(localidade);
     }
 
     @Override
-    public List<LocalidadeModel> getAll() {
+    public List<Localidade> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public LocalidadeModel getById(Integer id) {
+    public Localidade getById(Integer id) {
         return repository.findById(id).get();
     }
 
     @Override
-    public void delete(LocalidadeModel localidade)
+    public void delete(Localidade localidade)
     {
         repository.delete(localidade);
     }

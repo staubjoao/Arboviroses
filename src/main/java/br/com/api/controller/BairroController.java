@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api.model.BairroModel;
+import br.com.api.model.Bairro;
 import br.com.api.responses.Response;
 import br.com.api.serviceimpl.BairroServiceImpl;
 import jakarta.validation.Valid;
@@ -34,9 +34,9 @@ public class BairroController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<BairroModel>> inserir(@RequestBody @Valid BairroModel bairro, BindingResult result)
+    private ResponseEntity<Response<Bairro>> inserir(@RequestBody @Valid Bairro bairro, BindingResult result)
     {
-        Response<BairroModel> response = new Response<BairroModel>();
+        Response<Bairro> response = new Response<Bairro>();
         response.setData(bairro);
         if(result.hasErrors())
         {
@@ -55,9 +55,9 @@ public class BairroController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<BairroModel>> alterar(@RequestBody @Valid BairroModel bairro, BindingResult result)
+    private ResponseEntity<Response<Bairro>> alterar(@RequestBody @Valid Bairro bairro, BindingResult result)
     {
-        Response<BairroModel> response = new Response<BairroModel>();
+        Response<Bairro> response = new Response<Bairro>();
         response.setData(bairro);
 
         if(result.hasErrors())
@@ -77,10 +77,10 @@ public class BairroController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<BairroModel>> getById(@PathVariable Integer id)
+    public ResponseEntity<Response<Bairro>> getById(@PathVariable Integer id)
     {
-        Response<BairroModel> response = new Response<BairroModel>();
-        BairroModel bairro = service.getById(id);
+        Response<Bairro> response = new Response<Bairro>();
+        Bairro bairro = service.getById(id);
         response.setData(bairro);
 
         if(bairro == null)
@@ -96,9 +96,9 @@ public class BairroController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<List<BairroModel>> getAll()
+    public ResponseEntity<List<Bairro>> getAll()
     {
-        List<BairroModel> bairro = service.getAll();
+        List<Bairro> bairro = service.getAll();
         return ResponseEntity.ok(bairro);
     }
 
@@ -106,7 +106,7 @@ public class BairroController {
     @ResponseStatus(HttpStatus.CREATED)
     public void delete(@PathVariable Integer id, BindingResult result)
     {
-        Response<BairroModel> response = new Response<BairroModel>();
+        Response<Bairro> response = new Response<Bairro>();
 
         if(result.hasErrors())
         {
@@ -118,7 +118,7 @@ public class BairroController {
             ResponseEntity.badRequest().body(response);
         }
 
-        BairroModel bairro = service.getById(id);
+        Bairro bairro = service.getById(id);
         service.delete(bairro);
     }
 }

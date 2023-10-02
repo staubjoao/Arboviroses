@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class LocalidadeModel {
+public class Localidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,6 @@ public class LocalidadeModel {
     @JoinColumn(name = "bairro_id")
     @Valid
     @NotNull(message = "{campo.bairro.obrigatorio}")
-    private BairroModel bairro;
+    private Bairro bairro;
 
 }

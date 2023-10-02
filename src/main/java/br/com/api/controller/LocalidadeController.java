@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api.model.LocalidadeModel;
+import br.com.api.model.Localidade;
 import br.com.api.responses.Response;
 import br.com.api.serviceimpl.LocalidadeServiceImpl;
 
@@ -35,9 +35,9 @@ public class LocalidadeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<LocalidadeModel>> inserir(@RequestBody @Valid LocalidadeModel localidade, BindingResult result)
+    private ResponseEntity<Response<Localidade>> inserir(@RequestBody @Valid Localidade localidade, BindingResult result)
     {
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
+        Response<Localidade> response = new Response<Localidade>();
         response.setData(localidade);
 
         if(result.hasErrors())
@@ -58,9 +58,9 @@ public class LocalidadeController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<LocalidadeModel>> alterar(@RequestBody @Valid LocalidadeModel localidade, BindingResult result)
+    private ResponseEntity<Response<Localidade>> alterar(@RequestBody @Valid Localidade localidade, BindingResult result)
     {
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
+        Response<Localidade> response = new Response<Localidade>();
         response.setData(localidade);
 
         if(result.hasErrors())
@@ -80,10 +80,10 @@ public class LocalidadeController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<LocalidadeModel>> getById(@PathVariable Integer id)
+    public ResponseEntity<Response<Localidade>> getById(@PathVariable Integer id)
     {
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
-        LocalidadeModel localidade = service.getById(id);
+        Response<Localidade> response = new Response<Localidade>();
+        Localidade localidade = service.getById(id);
         response.setData(localidade);
 
         if(localidade == null)
@@ -98,9 +98,9 @@ public class LocalidadeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)    
-    public ResponseEntity<List<LocalidadeModel>> getAll()
+    public ResponseEntity<List<Localidade>> getAll()
     {
-        List<LocalidadeModel> localidade = service.getAll();
+        List<Localidade> localidade = service.getAll();
         return ResponseEntity.ok(localidade);
     }
 
@@ -108,7 +108,7 @@ public class LocalidadeController {
     @ResponseStatus(HttpStatus.CREATED)
     public void delete(@PathVariable Integer id, BindingResult result)
     {   
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
+        Response<Localidade> response = new Response<Localidade>();
 
         if(result.hasErrors())
         {
@@ -120,7 +120,7 @@ public class LocalidadeController {
             ResponseEntity.badRequest().body(response);
         }
 
-        LocalidadeModel obj = service.getById(id);
+        Localidade obj = service.getById(id);
         service.delete(obj);
     }
 }

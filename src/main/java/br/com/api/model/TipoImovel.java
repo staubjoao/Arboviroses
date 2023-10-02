@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="tipo_imoveis")
-public class TipoImovelModel {
+public class TipoImovel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,6 @@ public class TipoImovelModel {
     @JsonIgnore
     @OneToMany
     @JoinColumn(name="fk_tipo_imovel_id")
-    private List<ImovelModel> imoveis;
+    private List<Imovel> imoveis;
 
 }

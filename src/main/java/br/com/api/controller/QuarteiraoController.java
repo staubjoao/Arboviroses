@@ -1,7 +1,7 @@
 package br.com.api.controller;
 
 
-import br.com.api.model.QuarteiraoModel;
+import br.com.api.model.Quarteirao;
 import br.com.api.repository.QuarteiraoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,28 +16,28 @@ public class QuarteiraoController {
     private QuarteiraoRepository quarteiraoRepository;
 
     @GetMapping
-    private List<QuarteiraoModel> getAll() {
+    private List<Quarteirao> getAll() {
         return quarteiraoRepository.findAll();
     }
 
     @PostMapping
-    private QuarteiraoModel inserirQuarteirao(@RequestBody QuarteiraoModel quarteiraoModel) {
+    private Quarteirao inserirQuarteirao(@RequestBody Quarteirao quarteiraoModel) {
         return quarteiraoRepository.save(quarteiraoModel);
     }
 
     @GetMapping("/{id}")
-    private QuarteiraoModel getQuarteirao(@PathVariable Integer id) {
+    private Quarteirao getQuarteirao(@PathVariable Integer id) {
         return quarteiraoRepository.findById(id).get();
     }
 
     @PutMapping
-    private QuarteiraoModel alterarQuarteirao(@RequestBody QuarteiraoModel quarteiraoModel) {
+    private Quarteirao alterarQuarteirao(@RequestBody Quarteirao quarteiraoModel) {
         return quarteiraoRepository.save(quarteiraoModel);
     }
 
     @DeleteMapping("/{id}")
     private void deletarQuarteirao(@PathVariable Integer id) {
-        QuarteiraoModel quarteiraoModel = quarteiraoRepository.findById(id).get();
+        Quarteirao quarteiraoModel = quarteiraoRepository.findById(id).get();
         quarteiraoRepository.delete(quarteiraoModel);
     }
 }

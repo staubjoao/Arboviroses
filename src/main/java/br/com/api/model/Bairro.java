@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType;
 
 @Entity
 @Data
-public class BairroModel {
+public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

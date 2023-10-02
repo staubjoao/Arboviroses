@@ -24,18 +24,18 @@ public class ImovelController {
     private QuarteiraoRepository quarteiraoRepository;
 
     @GetMapping
-    private List<ImovelModel> getAll() {
+    private List<Imovel> getAll() {
         return imovelRepository.findAll();
     }
 
     @PostMapping
-    private ImovelModel inserirImovel(@RequestBody ImovelRequest imovelRequest) {
-        BairroModel bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
-        LogradouroModel logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
-        TipoImovelModel tipoImovelModel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
-        QuarteiraoModel quarteiraoModel = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
+    private Imovel inserirImovel(@RequestBody ImovelRequest imovelRequest) {
+        Bairro bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
+        Logradouro logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
+        TipoImovel tipoImovelModel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
+        Quarteirao quarteiraoModel = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
 
-        ImovelModel imovelModel = new ImovelModel();
+        Imovel imovelModel = new Imovel();
         imovelModel.setId(imovelRequest.id);
         imovelModel.setNumero(imovelRequest.numero);
         imovelModel.setLocalidade(imovelRequest.localidade);
@@ -48,13 +48,13 @@ public class ImovelController {
     }
 
     @PutMapping
-    private ImovelModel getImovel(@RequestBody ImovelRequest imovelRequest) {
-        BairroModel bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
-        LogradouroModel logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
-        TipoImovelModel tipoImovelModel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
-        QuarteiraoModel quarteiraoModel = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
+    private Imovel getImovel(@RequestBody ImovelRequest imovelRequest) {
+        Bairro bairro = bairroRepository.findById(imovelRequest.bairro_id).get();
+        Logradouro logradouro = logradouroRepository.findById(imovelRequest.logradouro_id).get();
+        TipoImovel tipoImovelModel = tipoImovelRepository.findById(imovelRequest.tipo_imovel_id).get();
+        Quarteirao quarteiraoModel = quarteiraoRepository.findById(imovelRequest.quarteirao_id).get();
 
-        ImovelModel imovelModel = new ImovelModel();
+        Imovel imovelModel = new Imovel();
         imovelModel.setId(imovelRequest.id);
         imovelModel.setNumero(imovelRequest.numero);
         imovelModel.setLocalidade(imovelRequest.localidade);
@@ -68,12 +68,12 @@ public class ImovelController {
 
     @DeleteMapping("/{id}")
     private void deletarImovel(@PathVariable Integer id) {
-        ImovelModel imovelModel = imovelRepository.findById(id).get();
+        Imovel imovelModel = imovelRepository.findById(id).get();
         imovelRepository.delete(imovelModel);
     }
 
     @GetMapping("/{id}")
-    private ImovelModel getImovel(@PathVariable Integer id) {
+    private Imovel getImovel(@PathVariable Integer id) {
         return imovelRepository.findById(id).get();
     }
 }

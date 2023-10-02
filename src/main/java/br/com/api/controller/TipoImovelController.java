@@ -1,6 +1,6 @@
 package br.com.api.controller;
 
-import br.com.api.model.TipoImovelModel;
+import br.com.api.model.TipoImovel;
 import br.com.api.repository.TipoImovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,28 +15,28 @@ public class TipoImovelController {
     private TipoImovelRepository repository;
 
     @GetMapping
-    private List<TipoImovelModel> getAll() {
+    private List<TipoImovel> getAll() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    private TipoImovelModel getTipoImovel(@PathVariable Integer id ) {
+    private TipoImovel getTipoImovel(@PathVariable Integer id ) {
         return repository.findById(id).get();
     }
 
     @PostMapping
-    private TipoImovelModel inserirTipoImovel(@RequestBody TipoImovelModel tipoImovelModel) {
+    private TipoImovel inserirTipoImovel(@RequestBody TipoImovel tipoImovelModel) {
         return repository.save(tipoImovelModel);
     }
 
     @PutMapping
-    private TipoImovelModel alterarTipoImovel(@RequestBody TipoImovelModel tipoImovelModel) {
+    private TipoImovel alterarTipoImovel(@RequestBody TipoImovel tipoImovelModel) {
         return repository.save(tipoImovelModel);
     }
 
     @DeleteMapping("/{id}")
     private void deletarTipoImovel(@PathVariable Integer id) {
-        TipoImovelModel tipoImovelModel = repository.findById(id).get();
+        TipoImovel tipoImovelModel = repository.findById(id).get();
         repository.delete(tipoImovelModel);
     }
 
