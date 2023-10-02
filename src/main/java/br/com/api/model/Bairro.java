@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "bairros")
-public class BairroModel {
+public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +22,8 @@ public class BairroModel {
     private Integer Id;
     @Column(nullable = false)
     private String bairro;
-    @JsonIgnore
-    @OneToMany
-    @JoinColumn(name = "fk_bairro_id")
-    private List<ImovelModel> imoveis;
 
-    public BairroModel(BairroDTO bairroDTO) {
+    public Bairro(BairroDTO bairroDTO) {
         this.bairro = bairroDTO.getBairro();
     }
 

@@ -1,9 +1,7 @@
 package br.com.api.controller;
 
-import br.com.api.dtos.BairroDTO;
 import br.com.api.dtos.LogradouroDTO;
-import br.com.api.model.BairroModel;
-import br.com.api.model.LogradouroModel;
+import br.com.api.model.Logradouro;
 import br.com.api.services.LogradouroService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +21,19 @@ public class LogradouroController {
     private LogradouroService logradouroService;
 
     @GetMapping("/todos")
-    public ResponseEntity<List<LogradouroModel>> listarTodos(){
+    public ResponseEntity<List<Logradouro>> listarTodos(){
         return ResponseEntity.status(HttpStatus.OK).body(logradouroService.getAll());
     }
 
     @PostMapping("/novo")
     public ResponseEntity<Object> iserirLogradouro(@RequestBody @Valid LogradouroDTO logradouroDTO){
-        var logradouroModel = new LogradouroModel(logradouroDTO);
+        var logradouroModel = new Logradouro(logradouroDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(logradouroService.save(logradouroModel));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> listaUmLogradouro(@PathVariable(value = "id") int id) {
-        Optional<LogradouroModel> logradouroModelOptional = logradouroService.buscaId(id);
+        Optional<Logradouro> logradouroModelOptional = logradouroService.buscaId(id);
         if(!logradouroModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Logradouro não encontrado na base de dados");
         }
@@ -44,7 +42,7 @@ public class LogradouroController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deletarLogradouro(@PathVariable(value = "id") int id){
-        Optional<LogradouroModel> logradouroModelOptional = logradouroService.buscaId(id);
+        Optional<Logradouro> logradouroModelOptional = logradouroService.buscaId(id);
         if(!logradouroModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Logradouro não encontrado na base de dados");
         }
@@ -55,11 +53,11 @@ public class LogradouroController {
     @PutMapping("/editar/{id}")
     public ResponseEntity<Object> editarBairro(@PathVariable(value = "id") int id,
                                                @RequestBody @Valid LogradouroDTO logradouroDTO){
-        Optional<LogradouroModel> logradouroModelOptional = logradouroService.buscaId(id);
+        Optional<Logradouro> logradouroModelOptional = logradouroService.buscaId(id);
         if(!logradouroModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Logradouro não encontrado na base de dados");
         }
-        var logradouroModel = new LogradouroModel();
+        var logradouroModel = new Logradouro();
         BeanUtils.copyProperties(logradouroDTO, logradouroModel);
         logradouroModel.setId(logradouroModelOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body(logradouroService.save(logradouroModel));

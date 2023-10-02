@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "quarteiroes")
-public class QuarteiraoModel {
+public class Quarteirao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,4 @@ public class QuarteiraoModel {
     private Integer numero;
     @Column
     private String localidade;
-    @OneToMany
-    @JoinColumn(name = "fk_quarteirao_id")
-    private List<ImovelModel> imoveis;
 }

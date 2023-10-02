@@ -1,6 +1,6 @@
 package br.com.api.services;
 
-import br.com.api.model.LocalidadeModel;
+import br.com.api.model.Localidade;
 import br.com.api.repository.LocalidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,18 +15,18 @@ public class LocalidadeService {
     LocalidadeRepository localidadeRepository;
 
     @Transactional
-    public LocalidadeModel save(LocalidadeModel localidadeModel){
-        return localidadeRepository.save(localidadeModel);
+    public Localidade save(Localidade localidade){
+        return localidadeRepository.save(localidade);
     }
-    public List<LocalidadeModel> getAll() {
+    public List<Localidade> getAll() {
         return localidadeRepository.findAll();
     }
 
-    public Optional<LocalidadeModel> buscaId(int id) {
+    public Optional<Localidade> buscaId(int id) {
         return localidadeRepository.findById(id);
     }
     @Transactional
-    public void delete(LocalidadeModel localidadeModel) {
-        localidadeRepository.delete(localidadeModel );
+    public void delete(Localidade localidade) {
+        localidadeRepository.delete(localidade);
     }
 }

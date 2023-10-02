@@ -3,9 +3,7 @@ package br.com.api.controller;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.api.dtos.BairroDTO;
 import br.com.api.dtos.LocalidadeDTO;
-import br.com.api.model.BairroModel;
 import br.com.api.services.LocalidadeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api.model.LocalidadeModel;
-import br.com.api.repository.LocalidadeRepository;
+import br.com.api.model.Localidade;
 
 import javax.validation.Valid;
 
@@ -34,19 +31,19 @@ public class LocalidadeController {
     private LocalidadeService localidadeService;
 
     @GetMapping("/todos")
-    public ResponseEntity<List<LocalidadeModel>> listarTodos(){
+    public ResponseEntity<List<Localidade>> listarTodos(){
         return ResponseEntity.status(HttpStatus.OK).body(localidadeService.getAll());
     }
 
     @PostMapping("/novo")
     public ResponseEntity<Object> iserirLocalidade(@RequestBody @Valid LocalidadeDTO localidadeDTO){
-        var localidadeModel = new LocalidadeModel(localidadeDTO);
+        var localidadeModel = new Localidade(localidadeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(localidadeService.save(localidadeModel));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> listaUmaLocalidade(@PathVariable(value = "id") int id) {
-        Optional<LocalidadeModel> localidadeModelOptional = localidadeService.buscaId(id);
+        Optional<Localidade> localidadeModelOptional = localidadeService.buscaId(id);
         if (!localidadeModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Localidade não encontrada na base de dados");
         }
@@ -55,7 +52,7 @@ public class LocalidadeController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deletarBairro(@PathVariable(value = "id") int id){
-        Optional<LocalidadeModel> localidadeModelOptional = localidadeService.buscaId(id);
+        Optional<Localidade> localidadeModelOptional = localidadeService.buscaId(id);
         if (!localidadeModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Localidade não encontrada na base de dados");
         }
@@ -66,11 +63,11 @@ public class LocalidadeController {
     @PutMapping("/editar/{id}")
     public ResponseEntity<Object> editarLocalidade(@PathVariable(value = "id") int id,
                                                @RequestBody @Valid LocalidadeDTO localidadeDTO){
-        Optional<LocalidadeModel> localidadeModelOptional = localidadeService.buscaId(id);
+        Optional<Localidade> localidadeModelOptional = localidadeService.buscaId(id);
         if (!localidadeModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Localidade não encontrada na base de dados");
         }
-        var localidadeModel = new LocalidadeModel();
+        var localidadeModel = new Localidade();
         BeanUtils.copyProperties(localidadeDTO, localidadeModel);
         localidadeModel.setId(localidadeModelOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body(localidadeService.save(localidadeModel));
