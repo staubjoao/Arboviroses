@@ -19,7 +19,7 @@ import java.util.List;
 public class TipoImovelController {
 
     @Autowired
-    private TipoImovelServiceImpl serviceTipoImovel;
+    private TipoImovelServiceImpl tipoImovelService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,30 +34,30 @@ public class TipoImovelController {
             }
             return ResponseEntity.badRequest().body(response);
         }
-        serviceTipoImovel.save(tipoImovel);
+        tipoImovelService.save(tipoImovel);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
     private List<TipoImovel> getAll() {
-        return serviceTipoImovel.getAll();
+        return tipoImovelService.getAll();
     }
 
     @GetMapping("/{id}")
     private TipoImovel getTipoImovel(@PathVariable Integer id) {
-        return serviceTipoImovel.getById(id);
+        return tipoImovelService.getById(id);
     }
 
     @PutMapping
     private TipoImovel alterarTipoImovel(@RequestBody TipoImovel tipoImovel) {
-        return serviceTipoImovel.put(tipoImovel);
+        return tipoImovelService.put(tipoImovel);
     }
 
     @DeleteMapping("/{id}")
     private void deletarTipoImovel(@PathVariable Integer id) {
-        TipoImovel tipoImovel = serviceTipoImovel.getById(id);
-        serviceTipoImovel.delete(tipoImovel);
+        TipoImovel tipoImovel = tipoImovelService.getById(id);
+        tipoImovelService.delete(tipoImovel);
     }
 
 }

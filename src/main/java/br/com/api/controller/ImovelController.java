@@ -1,11 +1,14 @@
 package br.com.api.controller;
 
-import br.com.api.dtos.ImovelDTO;
-import br.com.api.model.*;
-import br.com.api.repository.*;
-import br.com.api.services.TipoImovelService;
+import br.com.api.model.Imovel;
+import br.com.api.responses.Response;
 import br.com.api.services.impl.ImovelServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +22,23 @@ public class ImovelController {
     private ImovelServiceImpl imovelService;
 
     @PostMapping
-    private Imovel inserirImovel(@RequestBody Imovel imovel) {
-        return imovelService.save(imovel);
+    @ResponseStatus
+    private ResponseEntity<Response<Imovel>> inserir(
+            @Valid @RequestBody Imovel imovel, BindingResult result) {
+        
+        Response<Imovel> response = new Response<>();
+        response.setData(imovel);
+        if(result.hasErrors()) {
+            for (ObjectError erros :
+                    result.getAllErrors()) {
+                response.getErrors().add(erros.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        imovelService.save(imovel);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -35,7 +53,6 @@ public class ImovelController {
 
     @PutMapping
     private Imovel getImovel(@RequestBody Imovel imovel) {
-        // depois vou tratar melhor isso
         return imovelService.put(imovel);
     }
 
