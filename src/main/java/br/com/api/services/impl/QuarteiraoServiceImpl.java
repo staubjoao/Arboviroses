@@ -1,4 +1,4 @@
-package br.com.api.serviceimpl;
+package br.com.api.services.impl;
 
 import br.com.api.model.Quarteirao;
 import br.com.api.repository.QuarteiraoRepository;

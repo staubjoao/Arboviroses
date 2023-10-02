@@ -3,7 +3,7 @@ package br.com.api.controller;
 import br.com.api.dtos.LogradouroDTO;
 import br.com.api.model.Logradouro;
 import br.com.api.responses.Response;
-import br.com.api.serviceimpl.LogradouroServiceImpl;
+import br.com.api.services.impl.LogradouroServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

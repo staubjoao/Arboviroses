@@ -3,7 +3,7 @@ package br.com.api.controller;
 import br.com.api.dtos.QuarteiraoDTO;
 import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
-import br.com.api.serviceimpl.QuarteiraoServiceImpl;
+import br.com.api.services.impl.QuarteiraoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
