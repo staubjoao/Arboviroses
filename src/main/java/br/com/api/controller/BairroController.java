@@ -1,123 +1,67 @@
 package br.com.api.controller;
 
-import java.util.List;
 
+import br.com.api.dtos.BairroDTO;
+import br.com.api.model.Bairro;
+import br.com.api.services.BairroService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import br.com.api.model.BairroModel;
-import br.com.api.responses.Response;
-import br.com.api.serviceimpl.BairroServiceImpl;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/bairro")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class BairroController {
 
     @Autowired
-    private BairroServiceImpl service;
+    private BairroService bairroService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<BairroModel>> inserir(@RequestBody @Valid BairroModel bairro, BindingResult result)
-    {
-        Response<BairroModel> response = new Response<BairroModel>();
-        response.setData(bairro);
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        service.save(bairro);
-
-        return ResponseEntity.ok(response);
+    @GetMapping("/todos")
+    public ResponseEntity<List<Bairro>> listarTodos(){
+        return ResponseEntity.status(HttpStatus.OK).body(bairroService.getAll());
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<BairroModel>> alterar(@RequestBody @Valid BairroModel bairro, BindingResult result)
-    {
-        Response<BairroModel> response = new Response<BairroModel>();
-        response.setData(bairro);
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        service.save(bairro);
-
-        return ResponseEntity.ok(response);
+    @PostMapping("/novo")
+    public ResponseEntity<Object> iserirBairro(@RequestBody @Valid BairroDTO bairroDTO){
+        var bairroModel = new Bairro(bairroDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(bairroService.save(bairroModel));
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<BairroModel>> getById(@PathVariable Integer id)
-    {
-        Response<BairroModel> response = new Response<BairroModel>();
-        BairroModel bairro = service.getById(id);
-        response.setData(bairro);
-
-        if(bairro == null)
-        {
-            response.getErrors().add("{campo.bairro.invalido}");
-            return ResponseEntity.badRequest().body(response);
+    public ResponseEntity<Object> listaUmUsuario(@PathVariable(value = "id") int id) {
+        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
+        if(!bairroModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
         }
-
-        service.getById(id);
-        return ResponseEntity.ok(response);
-     
+        return ResponseEntity.status(HttpStatus.OK).body(bairroModelOptional);
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<List<BairroModel>> getAll()
-    {
-        List<BairroModel> bairro = service.getAll();
-        return ResponseEntity.ok(bairro);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void delete(@PathVariable Integer id, BindingResult result)
-    {
-        Response<BairroModel> response = new Response<BairroModel>();
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            ResponseEntity.badRequest().body(response);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deletarBairro(@PathVariable(value = "id") int id){
+        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
+        if (!bairroModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
         }
-
-        BairroModel bairro = service.getById(id);
-        service.delete(bairro);
+        bairroService.delete(bairroModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Bairro deletado com sucesso!!");
     }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<Object> editarBairro(@PathVariable(value = "id") int id,
+                                               @RequestBody @Valid BairroDTO bairroDTO){
+        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
+        if (!bairroModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
+        }
+        var bairroModel = new Bairro();
+        BeanUtils.copyProperties(bairroDTO, bairroModel);
+        bairroModel.setId(bairroModelOptional.get().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(bairroService.save(bairroModel));
+    }
+
 }

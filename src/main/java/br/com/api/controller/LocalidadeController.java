@@ -1,12 +1,14 @@
 package br.com.api.controller;
 
 import java.util.List;
+import java.util.Optional;
+
+import br.com.api.dtos.LocalidadeDTO;
+import br.com.api.services.LocalidadeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,113 +16,60 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api.model.LocalidadeModel;
-import br.com.api.responses.Response;
-import br.com.api.serviceimpl.LocalidadeServiceImpl;
+import br.com.api.model.Localidade;
 
 import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api/localidade")
-@CrossOrigin(origins = "*", maxAge = 3600)
-
+@RequestMapping("api/localidade")
 public class LocalidadeController {
-
+    
     @Autowired
-    private LocalidadeServiceImpl service;
+    private LocalidadeService localidadeService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<LocalidadeModel>> inserir(@RequestBody @Valid LocalidadeModel localidade, BindingResult result)
-    {
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
-        response.setData(localidade);
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        service.save(localidade);
-
-        return ResponseEntity.ok(response);
-
+    @GetMapping("/todos")
+    public ResponseEntity<List<Localidade>> listarTodos(){
+        return ResponseEntity.status(HttpStatus.OK).body(localidadeService.getAll());
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<LocalidadeModel>> alterar(@RequestBody @Valid LocalidadeModel localidade, BindingResult result)
-    {
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
-        response.setData(localidade);
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        service.save(localidade);
-
-        return ResponseEntity.ok(response);
+    @PostMapping("/novo")
+    public ResponseEntity<Object> iserirLocalidade(@RequestBody @Valid LocalidadeDTO localidadeDTO){
+        var localidadeModel = new Localidade(localidadeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(localidadeService.save(localidadeModel));
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<LocalidadeModel>> getById(@PathVariable Integer id)
-    {
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
-        LocalidadeModel localidade = service.getById(id);
-        response.setData(localidade);
-
-        if(localidade == null)
-        {
-            response.getErrors().add("{campo.localidade.invalido}");
-            return ResponseEntity.badRequest().body(response);
+    public ResponseEntity<Object> listaUmaLocalidade(@PathVariable(value = "id") int id) {
+        Optional<Localidade> localidadeModelOptional = localidadeService.buscaId(id);
+        if (!localidadeModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Localidade não encontrada na base de dados");
         }
-
-        service.getById(id);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK).body(localidadeModelOptional);
     }
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.CREATED)    
-    public ResponseEntity<List<LocalidadeModel>> getAll()
-    {
-        List<LocalidadeModel> localidade = service.getAll();
-        return ResponseEntity.ok(localidade);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deletarBairro(@PathVariable(value = "id") int id){
+        Optional<Localidade> localidadeModelOptional = localidadeService.buscaId(id);
+        if (!localidadeModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Localidade não encontrada na base de dados");
+        }
+        localidadeService.delete(localidadeModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Localidade deletada com sucesso!!");
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void delete(@PathVariable Integer id, BindingResult result)
-    {   
-        Response<LocalidadeModel> response = new Response<LocalidadeModel>();
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            ResponseEntity.badRequest().body(response);
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<Object> editarLocalidade(@PathVariable(value = "id") int id,
+                                               @RequestBody @Valid LocalidadeDTO localidadeDTO){
+        Optional<Localidade> localidadeModelOptional = localidadeService.buscaId(id);
+        if (!localidadeModelOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Localidade não encontrada na base de dados");
         }
-
-        LocalidadeModel obj = service.getById(id);
-        service.delete(obj);
+        var localidadeModel = new Localidade();
+        BeanUtils.copyProperties(localidadeDTO, localidadeModel);
+        localidadeModel.setId(localidadeModelOptional.get().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(localidadeService.save(localidadeModel));
     }
 }
