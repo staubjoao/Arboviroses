@@ -1,7 +1,7 @@
 package br.com.api.model;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -14,7 +14,6 @@ public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     @Column(nullable = false, length = 100)
