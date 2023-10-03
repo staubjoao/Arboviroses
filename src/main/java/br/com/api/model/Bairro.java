@@ -1,30 +1,48 @@
 package br.com.api.model;
-
-import br.com.api.dtos.BairroDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+<<<<<<<< HEAD:src/main/java/br/com/api/model/BairroModel.java
 import javax.persistence.*;
+========
 
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+>>>>>>>> origin/master:src/main/java/br/com/api/model/Bairro.java
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Data
-@NoArgsConstructor
+<<<<<<<< HEAD:src/main/java/br/com/api/model/BairroModel.java
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="bairros")
+public class BairroModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="bairro_id")
+========
 @Table(name = "bairros")
 public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bairro_id")
-    private Integer Id;
-    @Column(nullable = false)
-    private String bairro;
 
-    public Bairro(BairroDTO bairroDTO) {
-        this.bairro = bairroDTO.getBairro();
-    }
+>>>>>>>> origin/master:src/main/java/br/com/api/model/Bairro.java
+    private Integer id;
+
+    @Column(nullable = false, length = 100)
+    @Valid
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
+    private String nome;
 
 }

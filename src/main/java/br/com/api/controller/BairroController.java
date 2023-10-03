@@ -1,67 +1,131 @@
 package br.com.api.controller;
 
+import java.util.List;
 
-import br.com.api.dtos.BairroDTO;
+
 import br.com.api.model.Bairro;
 import br.com.api.services.BairroService;
-import org.springframework.beans.BeanUtils;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+import br.com.api.model.Bairro;
+import br.com.api.responses.Response;
+import br.com.api.serviceimpl.BairroServiceImpl;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/bairro")
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 public class BairroController {
 
     @Autowired
-    private BairroService bairroService;
+    private BairroServiceImpl service;
 
-    @GetMapping("/todos")
-    public ResponseEntity<List<Bairro>> listarTodos(){
-        return ResponseEntity.status(HttpStatus.OK).body(bairroService.getAll());
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    private ResponseEntity<Response<Bairro>> inserir(@RequestBody @Valid Bairro bairro, BindingResult result)
+    {
+        Response<Bairro> response = new Response<Bairro>();
+        response.setData(bairro);
+        if(result.hasErrors())
+        {
+            for(ObjectError errors: result.getAllErrors())
+            {
+                response.getErrors().add(errors.getDefaultMessage());
+            }
+
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        service.save(bairro);
+
+
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/novo")
-    public ResponseEntity<Object> iserirBairro(@RequestBody @Valid BairroDTO bairroDTO){
-        var bairroModel = new Bairro(bairroDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(bairroService.save(bairroModel));
+    @PutMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    private ResponseEntity<Response<Bairro>> alterar(@RequestBody @Valid Bairro bairro, BindingResult result)
+    {
+        Response<Bairro> response = new Response<Bairro>();
+        response.setData(bairro);
+
+        if(result.hasErrors())
+        {
+            for(ObjectError errors: result.getAllErrors())
+            {
+                response.getErrors().add(errors.getDefaultMessage());
+            }
+
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        service.save(bairro);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> listaUmUsuario(@PathVariable(value = "id") int id) {
-        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
-        if(!bairroModelOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Response<Bairro>> getById(@PathVariable Integer id)
+    {
+        Response<Bairro> response = new Response<Bairro>();
+        Bairro bairro = service.getById(id);
+        response.setData(bairro);
+
+        if(bairro == null)
+        {
+            response.getErrors().add("{campo.bairro.invalido}");
+            return ResponseEntity.badRequest().body(response);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(bairroModelOptional);
+
+        service.getById(id);
+        return ResponseEntity.ok(response);
+     
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deletarBairro(@PathVariable(value = "id") int id){
-        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
-        if (!bairroModelOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
-        }
-        bairroService.delete(bairroModelOptional.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Bairro deletado com sucesso!!");
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<List<Bairro>> getAll()
+    {
+        List<Bairro> bairro = service.getAll();
+        return ResponseEntity.ok(bairro);
     }
 
-    @PutMapping("/editar/{id}")
-    public ResponseEntity<Object> editarBairro(@PathVariable(value = "id") int id,
-                                               @RequestBody @Valid BairroDTO bairroDTO){
-        Optional<Bairro> bairroModelOptional = bairroService.buscaId(id);
-        if (!bairroModelOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bairro não encontrado na base de dados");
-        }
-        var bairroModel = new Bairro();
-        BeanUtils.copyProperties(bairroDTO, bairroModel);
-        bairroModel.setId(bairroModelOptional.get().getId());
-        return ResponseEntity.status(HttpStatus.OK).body(bairroService.save(bairroModel));
-    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void delete(@PathVariable Integer id, BindingResult result)
+    {
+        Response<Bairro> response = new Response<Bairro>();
 
+        if(result.hasErrors())
+        {
+            for(ObjectError errors: result.getAllErrors())
+            {
+                response.getErrors().add(errors.getDefaultMessage());
+            }
+
+            ResponseEntity.badRequest().body(response);
+        }
+   
+        Bairro bairro = service.getById(id);
+        service.delete(bairro);
+    }
 }

@@ -54,11 +54,13 @@ public class ImovelController {
     @PutMapping
     private Imovel getImovel(@RequestBody Imovel imovel) {
         return imovelService.put(imovel);
+
     }
 
     @DeleteMapping("/{id}")
     private void deletarImovel(@PathVariable Integer id) {
         Imovel imovel = imovelService.getById(id);
         imovelService.delete(imovel);
+
     }
 }

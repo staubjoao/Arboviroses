@@ -1,7 +1,9 @@
 package br.com.api.model;
 
 import javax.persistence.*;
+
 import javax.validation.constraints.NotEmpty;
+
 
 import lombok.Data;
 
@@ -15,6 +17,7 @@ public class Imovel {
     @Column(name = "imovel_id")
     private Integer id;
     @Column
+
     @NotEmpty(message = "{campo.localidade.obrigatorio}")
     private String localidade;
     @Column

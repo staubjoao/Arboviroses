@@ -1,45 +1,53 @@
 package br.com.api.model;
 
-import br.com.api.dtos.LocalidadeDTO;
+<<<<<<<< HEAD:src/main/java/br/com/api/model/LocalidadeModel.java
+import javax.persistence.*;
+========
+
+import jakarta.persistence.Id;
+>>>>>>>> origin/master:src/main/java/br/com/api/model/Localidade.java
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 import javax.persistence.*;
 
-@Entity
 @Data
-@NoArgsConstructor
+<<<<<<<< HEAD:src/main/java/br/com/api/model/LocalidadeModel.java
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
+public class LocalidadeModel {
+========
+
 @Table(name="localidades")
 public class Localidade {
     
+>>>>>>>> origin/master:src/main/java/br/com/api/model/Localidade.java
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false, length = 400)
+    @Valid
     private String descricao;
 
-    @Column
+    @Column(nullable = false, length = 100)
+    @Valid
     private String estrato;
 
-    @Column
+    @Column(nullable = false, length = 100)
+    @Valid
     private String categoria;
 
-    @Column
-    private String zona;
+    @ManyToOne
+    @JoinColumn(name = "bairro_id")
+    @Valid
+    @NotNull(message = "{campo.bairro.obrigatorio}")
+    private Bairro bairro;
 
-    public Localidade(LocalidadeDTO localidadeDTO) {
-        this.descricao = localidadeDTO.getDescricao();
-        this.categoria = localidadeDTO.getCategoria();
-        this.estrato = localidadeDTO.getEstrato();
-        this.zona = localidadeDTO.getZona();
-    }
-
-    @Override
-    public String toString() {
-        return "Localidade [categoria=" + categoria + ", descricao=" + descricao + ", estrato=" + estrato + ", id=" + id
-                + "]";
-    }
 }
