@@ -7,7 +7,6 @@ import br.com.api.model.Bairro;
 import java.util.List;
 
 @Service
-
 public interface BairroService {
 
     public Bairro save(Bairro bairro);

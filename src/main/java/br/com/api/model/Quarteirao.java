@@ -33,7 +33,7 @@ public class Quarteirao {
     private String localidade;
     @OneToMany
     @JoinColumn(name = "fk_quarteirao_id")
-    private List<ImovelModel> imoveis;
+    private List<Imovel> imoveis;
 
     public Quarteirao(QuarteiraoDTO quarteiraoDTO) {
         this.numero=quarteiraoDTO.getNumero();
