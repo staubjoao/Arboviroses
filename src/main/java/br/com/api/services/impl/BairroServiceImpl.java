@@ -1,4 +1,4 @@
-package br.com.api.serviceimpl;
+package br.com.api.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
