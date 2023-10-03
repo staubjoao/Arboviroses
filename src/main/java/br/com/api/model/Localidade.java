@@ -18,7 +18,7 @@ import javax.persistence.*;
 
 @Table(name="localidades")
 public class Localidade {
-    
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

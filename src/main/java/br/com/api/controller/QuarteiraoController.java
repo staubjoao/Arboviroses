@@ -1,46 +1,101 @@
 package br.com.api.controller;
 
-
+import br.com.api.dtos.QuarteiraoDTO;
 import br.com.api.model.Quarteirao;
-import br.com.api.repository.QuarteiraoRepository;
+import br.com.api.responses.Response;
+import br.com.api.services.impl.QuarteiraoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/quarteirao")
 public class QuarteiraoController {
 
     @Autowired
-    private QuarteiraoRepository quarteiraoRepository;
+    private QuarteiraoServiceImpl service;
 
-    @GetMapping
-    private List<Quarteirao> getAll() {
-        return quarteiraoRepository.findAll();
-    }
-
-    @PostMapping
-    private Quarteirao inserirQuarteirao(@RequestBody Quarteirao quarteirao) {
-        return quarteiraoRepository.save(quarteirao);
+    @GetMapping("/todos")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<List<Quarteirao>> listarTodos(){
+        List<Quarteirao> quarteirao = service.getAll();
+        return ResponseEntity.ok(quarteirao);
     }
 
     @GetMapping("/{id}")
-    private Quarteirao getQuarteirao(@PathVariable Integer id) {
-        return quarteiraoRepository.findById(id).get();
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Object> listaUmQuarteirao(@PathVariable(value = "id") int id) {
+        Optional<Quarteirao> obj = service.buscaId(id);
+        Response<Optional<Quarteirao>> response = new Response<>();
+        if(!obj.isPresent())
+        {
+            response.getErrors().add("logradouro nao encontrado");
+            return ResponseEntity.badRequest().body(response);
+        }
+        response.setData(obj);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping
+    @PostMapping("/novo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Response<Quarteirao>> iserirQuarteirao(
+            @Valid @RequestBody QuarteiraoDTO quarteiraoDTO, BindingResult result){
+        var quarteirao = new Quarteirao(quarteiraoDTO);
+        Response<Quarteirao> response = new Response<Quarteirao>();
+        if(result.hasErrors())
+        {
+            for(ObjectError errors: result.getAllErrors())
+            {
+                response.getErrors().add(errors.getDefaultMessage());
+            }
 
-    private Quarteirao alterarQuarteirao(@RequestBody Quarteirao quarteirao) {
-        return quarteiraoRepository.save(quarteirao);
-
+            return ResponseEntity.badRequest().body(response);
+        }
+        response.setData(quarteirao);
+        service.save(quarteirao);
+        return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
-    private void deletarQuarteirao(@PathVariable Integer id) {
-        Quarteirao quarteirao = quarteiraoRepository.findById(id).get();
-        quarteiraoRepository.delete(quarteirao);
 
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Object> deletarQuarteirao(@PathVariable(value = "id") int id) {
+        Optional<Quarteirao> obj = service.buscaId(id);
+        Response<Optional<Quarteirao>> response = new Response<>();
+        if(!obj.isPresent())
+        {
+            response.getErrors().add("quarteirao nao encontrado");
+            return ResponseEntity.badRequest().body(response);
+        }
+        response.setData(obj);
+        service.delete(obj.get());
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/editar/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Object> editarQuarteirao(
+            @PathVariable(value = "id") int id,
+            @Valid @RequestBody QuarteiraoDTO quarteiraoDTO, BindingResult result){
+        var quarteirao = new Quarteirao(quarteiraoDTO);
+        Optional<Quarteirao> obj = service.buscaId(id);
+        Response<Optional<Quarteirao>> response = new Response<>();
+        if(!obj.isPresent())
+        {
+            response.getErrors().add("quarteirao nao encontrado");
+            return ResponseEntity.badRequest().body(response);
+        }
+        quarteirao.setId(obj.get().getId());
+        response.setData(Optional.of(quarteirao));
+        service.save(quarteirao);
+        return ResponseEntity.ok(response);
     }
 }

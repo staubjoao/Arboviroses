@@ -4,6 +4,8 @@ import br.com.api.dtos.LogradouroDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,8 @@ public class Logradouro {
     @Column(name="logradouro_id")
     private Integer id;
     @Column
+    @Valid
+    @NotBlank(message = "{campo.nome.obrigatorio}")
     private String logradouro;
 
     public Logradouro(LogradouroDTO logradouroDTO) {
