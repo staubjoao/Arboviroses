@@ -2,8 +2,6 @@ package br.com.api.controller;
 
 import java.util.List;
 
-import br.com.api.services.LocalidadeService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.api.model.Localidade;
 
 import br.com.api.responses.Response;
-import br.com.api.serviceimpl.LocalidadeServiceImpl;
+import br.com.api.services.impl.LocalidadeServiceImpl;
 
 
 import javax.validation.Valid;
@@ -32,7 +30,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/localidade")
 @CrossOrigin(origins = "*", maxAge = 3600)
-
 public class LocalidadeController {
 
     @Autowired

@@ -1,7 +1,6 @@
 package br.com.api.model;
 
 import br.com.api.dtos.LogradouroDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 import jakarta.validation.Valid;
