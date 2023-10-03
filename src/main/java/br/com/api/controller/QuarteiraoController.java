@@ -21,8 +21,8 @@ public class QuarteiraoController {
     }
 
     @PostMapping
-    private Quarteirao inserirQuarteirao(@RequestBody Quarteirao quarteiraoModel) {
-        return quarteiraoRepository.save(quarteiraoModel);
+    private Quarteirao inserirQuarteirao(@RequestBody Quarteirao quarteirao) {
+        return quarteiraoRepository.save(quarteirao);
     }
 
     @GetMapping("/{id}")
@@ -31,13 +31,16 @@ public class QuarteiraoController {
     }
 
     @PutMapping
-    private Quarteirao alterarQuarteirao(@RequestBody Quarteirao quarteiraoModel) {
-        return quarteiraoRepository.save(quarteiraoModel);
+
+    private Quarteirao alterarQuarteirao(@RequestBody Quarteirao quarteirao) {
+        return quarteiraoRepository.save(quarteirao);
+
     }
 
     @DeleteMapping("/{id}")
     private void deletarQuarteirao(@PathVariable Integer id) {
-        Quarteirao quarteiraoModel = quarteiraoRepository.findById(id).get();
-        quarteiraoRepository.delete(quarteiraoModel);
+        Quarteirao quarteirao = quarteiraoRepository.findById(id).get();
+        quarteiraoRepository.delete(quarteirao);
+
     }
 }

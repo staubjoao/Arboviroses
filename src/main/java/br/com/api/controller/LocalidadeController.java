@@ -1,6 +1,9 @@
 package br.com.api.controller;
 
 import java.util.List;
+
+import br.com.api.services.LocalidadeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.model.Localidade;
+
 import br.com.api.responses.Response;
 import br.com.api.serviceimpl.LocalidadeServiceImpl;
+
 
 import javax.validation.Valid;
 
@@ -53,6 +58,7 @@ public class LocalidadeController {
         service.save(localidade);
 
         return ResponseEntity.ok(response);
+
 
     }
 
@@ -90,11 +96,13 @@ public class LocalidadeController {
         {
             response.getErrors().add("{campo.localidade.invalido}");
             return ResponseEntity.badRequest().body(response);
+    
         }
 
         service.getById(id);
         return ResponseEntity.ok(response);
     }
+
 
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)    
@@ -122,5 +130,6 @@ public class LocalidadeController {
 
         Localidade obj = service.getById(id);
         service.delete(obj);
+
     }
 }

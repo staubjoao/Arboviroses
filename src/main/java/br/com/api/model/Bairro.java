@@ -1,5 +1,6 @@
 package br.com.api.model;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -12,10 +13,12 @@ import jakarta.persistence.GenerationType;
 
 @Entity
 @Data
+@Table(name = "bairros")
 public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @Column(nullable = false, length = 100)

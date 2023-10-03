@@ -14,8 +14,10 @@ public class LogradouroService {
     @Autowired
     LogradouroRepository logradouroRepository;
     @Transactional
-    public Logradouro save(Logradouro logradouroModel){
-        return  logradouroRepository.save(logradouroModel);
+
+    public Logradouro save(Logradouro logradouro){
+        return  logradouroRepository.save(logradouro);
+
     }
     public List<Logradouro> getAll() {
         return logradouroRepository.findAll();
@@ -25,7 +27,9 @@ public class LogradouroService {
         return logradouroRepository.findById(id);
     }
     @Transactional
-    public void delete(Logradouro logradouroModel) {
-        logradouroRepository.delete(logradouroModel);
+
+    public void delete(Logradouro logradouro) {
+        logradouroRepository.delete(logradouro);
+
     }
 }

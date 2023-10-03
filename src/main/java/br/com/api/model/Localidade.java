@@ -1,5 +1,6 @@
 package br.com.api.model;
 
+
 import jakarta.persistence.Id;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -9,11 +10,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 
+
 import javax.persistence.*;
 
 @Entity
 @Data
+
+@Table(name="localidades")
 public class Localidade {
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

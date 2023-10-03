@@ -2,6 +2,11 @@ package br.com.api.controller;
 
 import java.util.List;
 
+
+import br.com.api.model.Bairro;
+import br.com.api.services.BairroService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +55,7 @@ public class BairroController {
 
         service.save(bairro);
 
+
         return ResponseEntity.ok(response);
     }
 
@@ -94,6 +100,7 @@ public class BairroController {
      
     }
 
+
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<List<Bairro>> getAll()
@@ -117,7 +124,7 @@ public class BairroController {
 
             ResponseEntity.badRequest().body(response);
         }
-
+   
         Bairro bairro = service.getById(id);
         service.delete(bairro);
     }
