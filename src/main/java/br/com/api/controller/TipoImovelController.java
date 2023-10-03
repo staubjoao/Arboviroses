@@ -1,9 +1,11 @@
 package br.com.api.controller;
 
 import br.com.api.model.TipoImovel;
+
 import br.com.api.responses.Response;
 import br.com.api.services.impl.TipoImovelServiceImpl;
 import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,12 +54,14 @@ public class TipoImovelController {
     @PutMapping
     private TipoImovel alterarTipoImovel(@RequestBody TipoImovel tipoImovel) {
         return tipoImovelService.put(tipoImovel);
+
     }
 
     @DeleteMapping("/{id}")
     private void deletarTipoImovel(@PathVariable Integer id) {
         TipoImovel tipoImovel = tipoImovelService.getById(id);
         tipoImovelService.delete(tipoImovel);
+
     }
 
 }

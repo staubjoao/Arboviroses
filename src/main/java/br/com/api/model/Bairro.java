@@ -1,30 +1,29 @@
 package br.com.api.model;
 
-import br.com.api.dtos.BairroDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.GenerationType;
 
-import java.util.List;
-
-@Data
-@NoArgsConstructor
 @Entity
+@Data
 @Table(name = "bairros")
 public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bairro_id")
-    private Integer Id;
-    @Column(nullable = false)
-    private String bairro;
 
-    public Bairro(BairroDTO bairroDTO) {
-        this.bairro = bairroDTO.getBairro();
-    }
+    private Integer id;
+
+    @Column(nullable = false, length = 100)
+    @Valid
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
+    private String nome;
 
 }

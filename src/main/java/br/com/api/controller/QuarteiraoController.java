@@ -31,13 +31,16 @@ public class QuarteiraoController {
     }
 
     @PutMapping
+
     private Quarteirao alterarQuarteirao(@RequestBody Quarteirao quarteirao) {
         return quarteiraoRepository.save(quarteirao);
+
     }
 
     @DeleteMapping("/{id}")
     private void deletarQuarteirao(@PathVariable Integer id) {
         Quarteirao quarteirao = quarteiraoRepository.findById(id).get();
         quarteiraoRepository.delete(quarteirao);
+
     }
 }

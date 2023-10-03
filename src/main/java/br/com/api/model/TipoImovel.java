@@ -2,8 +2,10 @@ package br.com.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+
 
 import lombok.Data;
 
