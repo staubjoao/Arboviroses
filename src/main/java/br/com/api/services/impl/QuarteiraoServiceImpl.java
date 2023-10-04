@@ -24,8 +24,8 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
     }
 
     @Override
-    public Optional<Quarteirao> buscaId(int id) {
-        return quarteiraoRepository.findById(id);
+    public Quarteirao getById(int id) {
+        return quarteiraoRepository.findById(id).get();
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="tipo_imoveis")
+@Table(name="db_tipo_imovei")
 public class TipoImovel {
 
     @Id

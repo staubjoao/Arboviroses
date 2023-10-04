@@ -32,8 +32,4 @@ public class ImovelServiceImpl implements ImovelService {
         imovelRepository.delete(imovel);
     }
 
-    @Override
-    public Imovel put(Imovel imovel) {
-        return imovelRepository.save(imovel);
-    }
 }

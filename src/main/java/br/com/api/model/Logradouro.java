@@ -1,6 +1,7 @@
 package br.com.api.model;
 
 import br.com.api.dtos.LogradouroDTO;
+
 import javax.persistence.*;
 
 import jakarta.validation.Valid;
@@ -13,24 +14,16 @@ import java.util.List;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name="logradouros")
+@Table(name = "db_logradouro")
 public class Logradouro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="logradouro_id")
+    @Column(name = "logradouro_id")
     private Integer id;
     @Column
     @Valid
     @NotBlank(message = "{campo.nome.obrigatorio}")
     private String logradouro;
-    @OneToMany
-    @JoinColumn(name = "fk_quarteirao_id")
-    private List<Imovel> imoveis;
 
-    public Logradouro(LogradouroDTO logradouroDTO) {
-        this.logradouro = logradouroDTO.getLogradouro();
-    }
 }

@@ -1,24 +1,19 @@
 package br.com.api.dtos;
 
+import br.com.api.model.Bairro;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.persistence.Column;
-
-@Getter
-@Setter
+@Data
 public class LocalidadeDTO {
-    @NotBlank
+
     private String descricao;
 
-    @NotBlank
     private String estrato;
 
-    @NotBlank
     private String categoria;
 
-    @NotBlank
-    private String zona;
+    private Integer idBairro;
+
 
 }

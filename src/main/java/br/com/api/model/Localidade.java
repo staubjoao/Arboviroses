@@ -14,7 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name="localidades")
+@Table(name="db_localidade")
 public class Localidade {
 
 
@@ -35,7 +35,7 @@ public class Localidade {
     private String categoria;
 
     @ManyToOne
-    @JoinColumn(name = "bairro_id")
+    @JoinColumn(name = "fk_bairro_id")
     @Valid
     @NotNull(message = "{campo.bairro.obrigatorio}")
     private Bairro bairro;

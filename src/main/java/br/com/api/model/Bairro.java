@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "bairros")
+@Table(name = "db_bairro")
 public class Bairro {
 
     @Id
@@ -20,5 +20,7 @@ public class Bairro {
     @Valid
     @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
+
+
 
 }

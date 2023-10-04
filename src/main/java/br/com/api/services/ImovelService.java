@@ -16,6 +16,4 @@ public interface ImovelService {
 
     public void delete(Imovel imovel);
 
-    public Imovel put(Imovel imovel);
-
 }
