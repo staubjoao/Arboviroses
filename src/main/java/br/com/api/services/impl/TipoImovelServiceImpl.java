@@ -33,8 +33,4 @@ public class TipoImovelServiceImpl implements TipoImovelService {
         tipoImovelRepository.delete(tipoImovel);
     }
 
-    @Override
-    public TipoImovel put(TipoImovel tipoImovel) {
-        return tipoImovelRepository.save(tipoImovel);
-    }
 }

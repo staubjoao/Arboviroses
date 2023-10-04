@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class LogradouroServiceImpl implements LogradouroService {
@@ -24,8 +23,8 @@ public class LogradouroServiceImpl implements LogradouroService {
     }
 
     @Override
-    public Optional<Logradouro> buscaId(int id) {
-        return logradouroRepository.findById(id);
+    public Logradouro getById(int id) {
+        return logradouroRepository.findById(id).get();
     }
 
     @Override

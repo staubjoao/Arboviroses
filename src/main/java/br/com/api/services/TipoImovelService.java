@@ -15,6 +15,4 @@ public interface TipoImovelService {
     public TipoImovel getById(Integer id);
 
     public void delete(TipoImovel tipoImovel);
-
-    public TipoImovel put(TipoImovel tipoImovel);
 }

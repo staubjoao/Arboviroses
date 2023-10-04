@@ -14,9 +14,7 @@ import java.util.List;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "quarteiroes")
+@Table(name = "db_quarteiroe")
 public class Quarteirao {
 
     @Id
@@ -31,12 +29,5 @@ public class Quarteirao {
     @Valid
     @NotBlank(message = "{campo.nome.obrigatorio}")
     private String localidade;
-    @OneToMany
-    @JoinColumn(name = "fk_quarteirao_id")
-    private List<Imovel> imoveis;
 
-    public Quarteirao(QuarteiraoDTO quarteiraoDTO) {
-        this.numero=quarteiraoDTO.getNumero();
-        this.localidade= quarteiraoDTO.getLocalidade();
-    }
 }

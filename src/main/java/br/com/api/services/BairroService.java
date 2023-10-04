@@ -10,8 +10,11 @@ import java.util.List;
 public interface BairroService {
 
     public Bairro save(Bairro bairro);
+
     public List<Bairro> getAll();
+
     public Bairro getById(Integer id);
+
     public void delete(Bairro bairro);
 
 

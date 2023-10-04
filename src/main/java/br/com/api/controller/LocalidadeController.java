@@ -2,6 +2,7 @@ package br.com.api.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,6 @@ import br.com.api.responses.Response;
 import br.com.api.services.impl.LocalidadeServiceImpl;
 
 
-import javax.validation.Valid;
-
-
 @RestController
 @RequestMapping("/api/localidade")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -37,96 +35,70 @@ public class LocalidadeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<Localidade>> inserir(@RequestBody @Valid Localidade localidade, BindingResult result)
-    {
-        Response<Localidade> response = new Response<Localidade>();
+    private ResponseEntity<Response<Localidade>> post(
+            @Valid @RequestBody Localidade localidade, BindingResult result) {
+
+        Response<Localidade> response = new Response<>();
         response.setData(localidade);
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
+        if (result.hasErrors()) {
+            for (ObjectError erros : result.getAllErrors()) {
+                response.getErrors().add(erros.getDefaultMessage());
             }
-
             return ResponseEntity.badRequest().body(response);
         }
 
         service.save(localidade);
 
         return ResponseEntity.ok(response);
-
-
     }
 
-    @PutMapping
+    @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<Localidade>> alterar(@RequestBody @Valid Localidade localidade, BindingResult result)
-    {
-        Response<Localidade> response = new Response<Localidade>();
-        response.setData(localidade);
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        service.save(localidade);
-
-        return ResponseEntity.ok(response);
+    private List<Localidade> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<Localidade>> getById(@PathVariable Integer id)
-    {
-        Response<Localidade> response = new Response<Localidade>();
-        Localidade localidade = service.getById(id);
-        response.setData(localidade);
-
-        if(localidade == null)
-        {
-            response.getErrors().add("{campo.localidade.invalido}");
+    private ResponseEntity<Response<Localidade>> getById(@PathVariable Integer id) {
+        Localidade obj = service.getById(id);
+        Response<Localidade> response = new Response<>();
+        if (obj == null) {
+            response.getErrors().add("Localidade não encontrado");
             return ResponseEntity.badRequest().body(response);
-    
         }
-
-        service.getById(id);
+        response.setData(obj);
         return ResponseEntity.ok(response);
     }
 
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.CREATED)    
-    public ResponseEntity<List<Localidade>> getAll()
-    {
-        List<Localidade> localidade = service.getAll();
-        return ResponseEntity.ok(localidade);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Response<Localidade>> put(
+            @PathVariable Integer id,
+            @Valid @RequestBody Localidade localidade) {
+        Localidade obj = service.getById(id);
+        Response<Localidade> response = new Response<>();
+        if (obj == null) {
+            response.getErrors().add("Quarteirao nao encontrado");
+            return ResponseEntity.badRequest().body(response);
+        }
+        localidade.setId(obj.getId());
+        response.setData(localidade);
+        service.save(localidade);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void delete(@PathVariable Integer id, BindingResult result)
-    {   
-        Response<Localidade> response = new Response<Localidade>();
-
-        if(result.hasErrors())
-        {
-            for(ObjectError errors: result.getAllErrors())
-            {
-                response.getErrors().add(errors.getDefaultMessage());
-            }
-
-            ResponseEntity.badRequest().body(response);
-        }
-
+    public ResponseEntity<Response<Localidade>> delete(@PathVariable Integer id) {
         Localidade obj = service.getById(id);
+        Response<Localidade> response = new Response<>();
+        if (obj == null) {
+            response.getErrors().add("Quarteirao nao encontrado");
+            return ResponseEntity.badRequest().body(response);
+        }
+        response.setData(obj);
         service.delete(obj);
-
+        return ResponseEntity.ok(response);
     }
 }
