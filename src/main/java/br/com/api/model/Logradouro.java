@@ -26,6 +26,9 @@ public class Logradouro {
     @Valid
     @NotBlank(message = "{campo.nome.obrigatorio}")
     private String logradouro;
+    @OneToMany
+    @JoinColumn(name = "fk_quarteirao_id")
+    private List<Imovel> imoveis;
 
     public Logradouro(LogradouroDTO logradouroDTO) {
         this.logradouro = logradouroDTO.getLogradouro();

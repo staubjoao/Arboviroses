@@ -22,7 +22,7 @@ public class QuarteiraoController {
     @Autowired
     private QuarteiraoServiceImpl service;
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<List<Quarteirao>> listarTodos(){
         List<Quarteirao> quarteirao = service.getAll();
@@ -36,14 +36,14 @@ public class QuarteiraoController {
         Response<Optional<Quarteirao>> response = new Response<>();
         if(!obj.isPresent())
         {
-            response.getErrors().add("logradouro nao encontrado");
+            response.getErrors().add("quarteirao nao encontrado");
             return ResponseEntity.badRequest().body(response);
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/novo")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Quarteirao>> iserirQuarteirao(
             @Valid @RequestBody QuarteiraoDTO quarteiraoDTO, BindingResult result){
@@ -65,7 +65,7 @@ public class QuarteiraoController {
 
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> deletarQuarteirao(@PathVariable(value = "id") int id) {
         Optional<Quarteirao> obj = service.buscaId(id);
@@ -80,7 +80,7 @@ public class QuarteiraoController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> editarQuarteirao(
             @PathVariable(value = "id") int id,

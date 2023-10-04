@@ -23,7 +23,7 @@ public class LogradouroController {
     @Autowired
     private LogradouroServiceImpl service;
 
-    @GetMapping("/todos")
+    @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<List<Logradouro>> listarTodos(){
         List<Logradouro> logradouro = service.getAll();
@@ -44,7 +44,7 @@ public class LogradouroController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/novo")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Logradouro>> iserirLogradouro(
             @Valid @RequestBody LogradouroDTO logradouroDTO, BindingResult result){
@@ -66,7 +66,7 @@ public class LogradouroController {
 
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> deletaLogradouro(@PathVariable(value = "id") int id) {
         Optional<Logradouro> obj = service.buscaId(id);
@@ -81,7 +81,7 @@ public class LogradouroController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> editarLogradouro(
             @PathVariable(value = "id") int id,
