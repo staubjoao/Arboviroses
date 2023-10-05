@@ -24,7 +24,7 @@ public class LogradouroServiceImpl implements LogradouroService {
 
     @Override
     public Logradouro getById(int id) {
-        return logradouroRepository.findById(id).get();
+        return logradouroRepository.findById(id).orElse(null);
     }
 
     @Override
