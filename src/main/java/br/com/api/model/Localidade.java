@@ -1,25 +1,23 @@
 package br.com.api.model;
 
-
+import javax.persistence.*;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 
 
-import javax.persistence.*;
-
 @Entity
 @Data
-@Table(name="db_localidade")
+@Table(name = "db_localidade")
 public class Localidade {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "localidade_id")
     private Integer id;
 
     @Column(nullable = false, length = 400)
@@ -37,7 +35,7 @@ public class Localidade {
     @ManyToOne
     @JoinColumn(name = "fk_bairro_id")
     @Valid
-    @NotNull(message = "{campo.bairro.obrigatorio}")
+    @NotEmpty(message = "{campo.bairro.obrigatorio}")
     private Bairro bairro;
 
 }

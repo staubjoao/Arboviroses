@@ -26,7 +26,7 @@ public class TipoImovelController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<TipoImovel>> post(
-            @Valid @RequestBody TipoImovel logradouro, BindingResult result) {
+            @Valid @RequestBody TipoImovel tipoImovel, BindingResult result) {
 
         Response<TipoImovel> response = new Response<>();
         if (result.hasErrors()) {
@@ -36,8 +36,8 @@ public class TipoImovelController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        response.setData(logradouro);
-        service.save(logradouro);
+        response.setData(tipoImovel);
+        service.save(tipoImovel);
 
         return ResponseEntity.ok(response);
     }

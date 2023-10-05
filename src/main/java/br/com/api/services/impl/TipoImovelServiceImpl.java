@@ -10,27 +10,28 @@ import java.util.List;
 
 @Component
 public class TipoImovelServiceImpl implements TipoImovelService {
+
     @Autowired
-    private TipoImovelRepository tipoImovelRepository;
+    private TipoImovelRepository repository;
 
     @Override
     public TipoImovel save(TipoImovel tipoImovel) {
-        return tipoImovelRepository.save(tipoImovel);
+        return repository.save(tipoImovel);
     }
 
     @Override
     public List<TipoImovel> getAll() {
-        return tipoImovelRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public TipoImovel getById(Integer id) {
-        return tipoImovelRepository.findById(id).get();
+        return repository.findById(id).get();
     }
 
     @Override
     public void delete(TipoImovel tipoImovel) {
-        tipoImovelRepository.delete(tipoImovel);
+        repository.delete(tipoImovel);
     }
 
 }

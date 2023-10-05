@@ -1,33 +1,30 @@
 package br.com.api.model;
 
-import br.com.api.dtos.QuarteiraoDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
 
 
 @Data
 @Entity
-@Table(name = "db_quarteiroe")
+@Table(name = "db_quarteirao")
 public class Quarteirao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quarteirao_id")
     private Integer id;
+
     @Column
     @Valid
-    @NotNull(message = "{campo.numero.quarteirao.vazio}")
+    @NotEmpty(message = "{campo.numero.obrigatorio}")
     private Integer numero;
+
     @Column
     @Valid
-    @NotBlank(message = "{campo.nome.obrigatorio}")
+    @NotEmpty(message = "{campo.localidade.obrigatorio}")
     private String localidade;
 
 }

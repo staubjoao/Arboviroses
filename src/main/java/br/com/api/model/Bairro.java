@@ -7,20 +7,19 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 @Table(name = "db_bairro")
 public class Bairro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bairro_id")
     private Integer id;
 
-    @Column(nullable = false, length = 100)
+    @Column
     @Valid
     @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
-
-
 
 }
