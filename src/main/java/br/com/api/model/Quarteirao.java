@@ -25,8 +25,8 @@ public class Quarteirao {
     @Valid
     @NotNull(message = "{campo.numero.quarteirao.vazio}")
     private Integer numero;
+
     @ManyToOne
     @JoinColumn(name = "localidade_id")
     private Localidade localidade;
-
 }
