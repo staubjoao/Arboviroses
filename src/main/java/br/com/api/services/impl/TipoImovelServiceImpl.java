@@ -25,7 +25,7 @@ public class TipoImovelServiceImpl implements TipoImovelService {
 
     @Override
     public TipoImovel getById(Integer id) {
-        return tipoImovelRepository.findById(id).get();
+        return tipoImovelRepository.findById(id).orElse(null);
     }
 
     @Override

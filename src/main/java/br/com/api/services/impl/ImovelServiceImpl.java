@@ -24,7 +24,7 @@ public class ImovelServiceImpl implements ImovelService {
 
     @Override
     public Imovel getById(Integer id) {
-        return imovelRepository.findById(id).get();
+        return imovelRepository.findById(id).orElse(null);
     }
 
     @Override
