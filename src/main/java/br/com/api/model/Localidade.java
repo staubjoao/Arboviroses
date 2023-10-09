@@ -12,7 +12,7 @@ import jakarta.persistence.GeneratedValue;
 
 @Entity
 @Data
-@Table(name = "db_localidade")
+@Table(name = "localidade")
 public class Localidade {
 
     @Id

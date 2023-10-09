@@ -3,13 +3,12 @@ package br.com.api.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-
 import jakarta.validation.Valid;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "db_logradouro")
+@Table(name = "logradouro")
 public class Logradouro {
 
     @Id

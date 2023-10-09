@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import br.com.api.responses.Response;
 import jakarta.validation.Valid;
@@ -23,70 +22,31 @@ public class BairroController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<Bairro>> post(
-            @Valid @RequestBody Bairro bairro, BindingResult result) {
-
-        Response<Bairro> response = new Response<>();
-        if (result.hasErrors()) {
-            for (ObjectError erros : result.getAllErrors()) {
-                response.getErrors().add(erros.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        response.setData(bairro);
-        service.save(bairro);
-
-        return ResponseEntity.ok(response);
+    private ResponseEntity<Response<Bairro>> post(@Valid @RequestBody Bairro bairro, BindingResult result) {
+        return service.salvar(bairro, result);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     private List<Bairro> getAll() {
-        return service.getAll();
+        return service.getlAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Bairro>> getById(@PathVariable Integer id) {
-        Bairro obj = service.getById(id);
-        Response<Bairro> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Bairro não encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        return ResponseEntity.ok(response);
+        return service.getById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<Bairro>> put(
-            @PathVariable Integer id,
-            @Valid @RequestBody Bairro bairro) {
-        Bairro obj = service.getById(id);
-        Response<Bairro> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Bairro nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        bairro.setId(obj.getId());
-        response.setData(bairro);
-        service.save(bairro);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Response<Bairro>> put(@Valid @RequestBody Bairro bairro, BindingResult result) {
+        return service.salvar(bairro, result);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Bairro>> delete(@PathVariable Integer id) {
-        Bairro obj = service.getById(id);
-        Response<Bairro> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Bairro nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        service.delete(obj);
-        return ResponseEntity.ok(response);
+        return service.deleteById(id);
     }
 }
