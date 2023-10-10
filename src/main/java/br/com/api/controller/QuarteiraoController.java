@@ -1,6 +1,7 @@
 package br.com.api.controller;
 
 import br.com.api.model.Bairro;
+import br.com.api.model.Logradouro;
 import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
 import br.com.api.services.impl.QuarteiraoServiceImpl;
@@ -18,27 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/quarteirao")
 public class QuarteiraoController {
-
     @Autowired
     private QuarteiraoServiceImpl service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<Quarteirao>> post(
-            @Valid @RequestBody Quarteirao quarteirao, BindingResult result) {
-
-        Response<Quarteirao> response = new Response<>();
-        if (result.hasErrors()) {
-            for (ObjectError erros : result.getAllErrors()) {
-                response.getErrors().add(erros.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        response.setData(quarteirao);
-        service.save(quarteirao);
-
-        return ResponseEntity.ok(response);
+    private ResponseEntity<Response<Quarteirao>> post(@Valid @RequestBody Quarteirao quarteirao, BindingResult result) {
+        return service.salvar(quarteirao, result);
     }
 
     @GetMapping
@@ -50,44 +37,18 @@ public class QuarteiraoController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Quarteirao>> getById(@PathVariable Integer id) {
-        Quarteirao obj = service.getById(id);
-        Response<Quarteirao> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Quarteirao não encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        return ResponseEntity.ok(response);
+        return service.getById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<Quarteirao>> put(
-            @PathVariable Integer id,
-            @Valid @RequestBody Quarteirao quarteirao) {
-        Quarteirao obj = service.getById(id);
-        Response<Quarteirao> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Quarteirao nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        quarteirao.setId(obj.getId());
-        response.setData(quarteirao);
-        service.save(quarteirao);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Response<Quarteirao>> put(@Valid @RequestBody Quarteirao quarteirao, BindingResult result) {
+        return service.salvar(quarteirao, result);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Quarteirao>> delete(@PathVariable Integer id) {
-        Quarteirao obj = service.getById(id);
-        Response<Quarteirao> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Quarteirao nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        service.delete(obj);
-        return ResponseEntity.ok(response);
+        return service.deleteById(id);
     }
 }
