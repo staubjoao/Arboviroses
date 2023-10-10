@@ -21,6 +21,6 @@ public class Quarteirao {
     private Integer numero;
 
     @ManyToOne
-    @JoinColumn(name = "localidade_id")
+    @JoinColumn(name = "fk_localidade_id")
     private Localidade localidade;
 }
