@@ -1,18 +1,23 @@
 package br.com.api.services;
 
 import br.com.api.model.TipoImovel;
+import br.com.api.responses.Response;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
 public interface TipoImovelService {
 
-    public TipoImovel save(TipoImovel tipoImovel);
+    ResponseEntity<Response<TipoImovel>> salvar(@Valid @RequestBody TipoImovel tipoImovel, BindingResult result);
 
-    public List<TipoImovel> getAll();
+    List<TipoImovel> getlAll();
 
-    public TipoImovel getById(Integer id);
+    ResponseEntity<Response<TipoImovel>> getById(Integer id);
 
-    public void delete(TipoImovel tipoImovel);
+    ResponseEntity<Response<TipoImovel>> deleteById(Integer id);
 }
