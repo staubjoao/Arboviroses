@@ -32,10 +32,4 @@ public class Localidade {
     @Valid
     private String categoria;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_bairro_id")
-    @Valid
-    @NotEmpty(message = "{campo.bairro.obrigatorio}")
-    private Bairro bairro;
-
 }
