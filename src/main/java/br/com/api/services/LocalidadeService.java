@@ -1,19 +1,24 @@
 package br.com.api.services;
 
 import br.com.api.model.Localidade;
+import br.com.api.responses.Response;
+import jakarta.validation.Valid;
 
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
-
-
 
 @Service
 public interface LocalidadeService {
 
-    public Localidade save(Localidade localidade);
-    public List<Localidade> getAll();
-    public Localidade getById(Integer id);
-    public void delete(Localidade localidade);
-}
+    ResponseEntity<Response<Localidade>> salvar(@Valid @RequestBody Localidade localidade, BindingResult result);
 
+    List<Localidade> getAll();
+
+    ResponseEntity<Response<Localidade>> getById(Integer id);
+
+    ResponseEntity<Response<Localidade>> deleteById(Integer id);
+}
