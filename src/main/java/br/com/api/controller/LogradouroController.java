@@ -1,5 +1,6 @@
 package br.com.api.controller;
 
+import br.com.api.model.Bairro;
 import br.com.api.model.Logradouro;
 import br.com.api.responses.Response;
 import br.com.api.services.impl.LogradouroServiceImpl;
@@ -23,21 +24,8 @@ public class LogradouroController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<Logradouro>> post(
-            @Valid @RequestBody Logradouro logradouro, BindingResult result) {
-
-        Response<Logradouro> response = new Response<>();
-        if (result.hasErrors()) {
-            for (ObjectError erros : result.getAllErrors()) {
-                response.getErrors().add(erros.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        response.setData(logradouro);
-        service.save(logradouro);
-
-        return ResponseEntity.ok(response);
+    private ResponseEntity<Response<Logradouro>> post(@Valid @RequestBody Logradouro logradouro, BindingResult result) {
+        return service.salvar(logradouro, result);
     }
 
     @GetMapping
@@ -49,44 +37,18 @@ public class LogradouroController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Logradouro>> getById(@PathVariable Integer id) {
-        Logradouro obj = service.getById(id);
-        Response<Logradouro> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Logradouro não encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        return ResponseEntity.ok(response);
+        return service.getById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<Logradouro>> put(
-            @PathVariable Integer id,
-            @Valid @RequestBody Logradouro logradouro) {
-        Logradouro obj = service.getById(id);
-        Response<Logradouro> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Logradouro nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        logradouro.setId(obj.getId());
-        response.setData(logradouro);
-        service.save(logradouro);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Response<Logradouro>> put(@Valid @RequestBody Logradouro logradouro, BindingResult result) {
+        return service.salvar(logradouro, result);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Logradouro>> delete(@PathVariable Integer id) {
-        Logradouro obj = service.getById(id);
-        Response<Logradouro> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Logradouro nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        service.delete(obj);
-        return ResponseEntity.ok(response);
+        return service.deleteById(id);
     }
 }
