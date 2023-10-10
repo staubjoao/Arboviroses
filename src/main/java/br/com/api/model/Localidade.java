@@ -4,9 +4,6 @@ import javax.persistence.*;
 
 import jakarta.validation.Valid;
 import lombok.Data;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
 
 @Entity
 @Data
@@ -29,9 +26,5 @@ public class Localidade {
     @Column(nullable = false, length = 100)
     @Valid
     private String categoria;
-
-    @ManyToOne
-    @JoinColumn(name = "fk_quarteirao_id")
-    private Quarteirao quarteirao;
 
 }
