@@ -14,11 +14,11 @@ import java.util.List;
 @Service
 public interface BairroService {
 
-    ResponseEntity<Response<Bairro>> salvar (@Valid @RequestBody Bairro bairro, BindingResult result );
+    ResponseEntity<Response<Bairro>> salvar(@Valid @RequestBody Bairro bairro, BindingResult result);
 
     List<Bairro> getlAll();
 
-    ResponseEntity<Response<Bairro>>  getById(Integer id);
+    ResponseEntity<Response<Bairro>> getById(Integer id);
 
     ResponseEntity<Response<Bairro>> deleteById(Integer id);
 
