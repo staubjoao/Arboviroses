@@ -1,19 +1,24 @@
 package br.com.api.services;
 
 import br.com.api.model.Imovel;
+import br.com.api.responses.Response;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
 public interface ImovelService {
 
-    public Imovel save(Imovel imovel);
+    ResponseEntity<Response<Imovel>> salvar(@Valid @RequestBody Imovel imovel, BindingResult result);
 
-    public List<Imovel> getAll();
+    List<Imovel> getlAll();
 
-    public Imovel getById(Integer id);
+    ResponseEntity<Response<Imovel>> getById(Integer id);
 
-    public void delete(Imovel imovel);
+    ResponseEntity<Response<Imovel>> deleteById(Integer id);
 
 }

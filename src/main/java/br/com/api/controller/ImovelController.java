@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,70 +22,31 @@ public class ImovelController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<Imovel>> post(
-            @Valid @RequestBody Imovel imovel, BindingResult result) {
-
-        Response<Imovel> response = new Response<>();
-        if (result.hasErrors()) {
-            for (ObjectError erros : result.getAllErrors()) {
-                response.getErrors().add(erros.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        response.setData(imovel);
-        service.save(imovel);
-
-        return ResponseEntity.ok(response);
+    private ResponseEntity<Response<Imovel>> post(@Valid @RequestBody Imovel imovel, BindingResult result) {
+        return service.salvar(imovel, result);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     private List<Imovel> getAll() {
-        return service.getAll();
+        return service.getlAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Imovel>> getById(@PathVariable Integer id) {
-        Imovel obj = service.getById(id);
-        Response<Imovel> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Imovel não encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        return ResponseEntity.ok(response);
+        return service.getById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<Imovel>> put(
-            @PathVariable Integer id,
-            @Valid @RequestBody Imovel imovel) {
-        Imovel obj = service.getById(id);
-        Response<Imovel> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Imovel nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        imovel.setId(obj.getId());
-        response.setData(imovel);
-        service.save(imovel);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Response<Imovel>> put(@Valid @RequestBody Imovel imovel, BindingResult result) {
+        return service.salvar(imovel, result);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Imovel>> delete(@PathVariable Integer id) {
-        Imovel obj = service.getById(id);
-        Response<Imovel> response = new Response<>();
-        if (obj == null) {
-            response.getErrors().add("Imovel nao encontrado");
-            return ResponseEntity.badRequest().body(response);
-        }
-        response.setData(obj);
-        service.delete(obj);
-        return ResponseEntity.ok(response);
+        return service.deleteById(id);
     }
 }
