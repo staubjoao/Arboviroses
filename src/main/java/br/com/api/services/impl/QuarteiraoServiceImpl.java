@@ -47,9 +47,9 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
         try {
             obj = repository.findById(id).get();
         } catch (NullPointerException ex) {
-            response.getErrors().add("Logradouro inválido");
+            response.getErrors().add("Quarteirão inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Logradouro inválido");
+            response.getErrors().add("Quarteirão inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
@@ -63,9 +63,9 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
             obj = repository.findById(id).get();
             repository.delete(obj);
         } catch (NullPointerException ex) {
-            response.getErrors().add("Logradouro inválido");
+            response.getErrors().add("Quarteirão inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Logradouro inválido");
+            response.getErrors().add("Quarteirão inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
