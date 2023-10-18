@@ -27,13 +27,13 @@ public class TipoImovelController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     private List<TipoImovel> getAll() {
         return service.getlAll();
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     private ResponseEntity<Response<TipoImovel>> getById(@PathVariable Integer id) {
         return service.getById(id);
     }
@@ -45,7 +45,7 @@ public class TipoImovelController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Response<TipoImovel>> delete(@PathVariable Integer id) {
         return service.deleteById(id);
     }

@@ -44,9 +44,9 @@ public class TipoImovelServiceImpl implements TipoImovelService {
         try {
             obj = repository.findById(id).get();
         } catch (NullPointerException ex) {
-            response.getErrors().add("Tipo imovel inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Tipo imovel inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
@@ -60,9 +60,9 @@ public class TipoImovelServiceImpl implements TipoImovelService {
             obj = repository.findById(id).get();
             repository.delete(obj);
         } catch (NullPointerException ex) {
-            response.getErrors().add("Tipo imovel inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Tipo imovel inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
