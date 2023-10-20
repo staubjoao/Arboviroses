@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.api.model.Localidade;
 
 import br.com.api.responses.Response;
-import br.com.api.services.impl.LocalidadeServiceImpl;
+import br.com.api.service.impl.LocalidadeServiceImpl;
 
 @RestController
 @RequestMapping("/api/localidade")

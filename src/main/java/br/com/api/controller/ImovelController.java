@@ -2,7 +2,7 @@ package br.com.api.controller;
 
 import br.com.api.model.Imovel;
 import br.com.api.responses.Response;
-import br.com.api.services.impl.ImovelServiceImpl;
+import br.com.api.service.impl.ImovelServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

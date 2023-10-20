@@ -1,6 +1,5 @@
-package br.com.api.services;
+package br.com.api.service;
 
-import br.com.api.model.Logradouro;
 import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
 import jakarta.validation.Valid;

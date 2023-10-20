@@ -1,4 +1,4 @@
-package br.com.api.services;
+package br.com.api.service;
 
 import br.com.api.model.Localidade;
 import br.com.api.responses.Response;
