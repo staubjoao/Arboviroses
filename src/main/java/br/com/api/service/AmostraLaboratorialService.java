@@ -1,4 +1,4 @@
-package br.com.api.services;
+package br.com.api.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @Service
+
 public interface AmostraLaboratorialService {
     
     ResponseEntity<Response<AmostraLaboratorial>> salvar(@RequestBody @Valid AmostraLaboratorial amostraLaboratorial, BindingResult result);

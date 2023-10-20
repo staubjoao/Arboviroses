@@ -1,11 +1,9 @@
-package br.com.api.services.impl;
+package br.com.api.service.impl;
 
-import br.com.api.model.Logradouro;
-import br.com.api.model.Quarteirao;
-import br.com.api.repository.LogradouroRepository;
-import br.com.api.repository.QuarteiraoRepository;
+import br.com.api.model.TipoImovel;
+import br.com.api.repository.TipoImovelRepository;
 import br.com.api.responses.Response;
-import br.com.api.services.QuarteiraoService;
+import br.com.api.service.TipoImovelService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,58 +12,57 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
-public class QuarteiraoServiceImpl implements QuarteiraoService {
+public class TipoImovelServiceImpl implements TipoImovelService {
     @Autowired
-    QuarteiraoRepository repository;
+    private TipoImovelRepository repository;
 
     @Override
-    public ResponseEntity<Response<Quarteirao>> salvar(@Valid Quarteirao quarteirao, BindingResult result) {
-        Response<Quarteirao> response = new Response<Quarteirao>();
-        response.setData(quarteirao);
+    public ResponseEntity<Response<TipoImovel>> salvar(@Valid TipoImovel tipoImovel, BindingResult result) {
+        Response<TipoImovel> response = new Response<TipoImovel>();
+        response.setData(tipoImovel);
         if (result.hasErrors()) {
             for (ObjectError erros : result.getAllErrors()) {
                 response.getErrors().add(erros.getDefaultMessage());
             }
             return ResponseEntity.badRequest().body(response);
         }
-        repository.save(quarteirao);
+        repository.save(tipoImovel);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public List<Quarteirao> getAll() {
+    public List<TipoImovel> getlAll() {
         return repository.findAll();
     }
 
     @Override
-    public ResponseEntity<Response<Quarteirao>> getById(Integer id) {
-        Response<Quarteirao> response = new Response<Quarteirao>();
-        Quarteirao obj = null;
+    public ResponseEntity<Response<TipoImovel>> getById(Integer id) {
+        Response<TipoImovel> response = new Response<TipoImovel>();
+        TipoImovel obj = null;
         try {
             obj = repository.findById(id).get();
         } catch (NullPointerException ex) {
-            response.getErrors().add("Quarteirão inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Quarteirão inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<Response<Quarteirao>> deleteById(Integer id) {
-        Response<Quarteirao> response = new Response<Quarteirao>();
-        Quarteirao obj = null;
+    public ResponseEntity<Response<TipoImovel>> deleteById(Integer id) {
+        Response<TipoImovel> response = new Response<TipoImovel>();
+        TipoImovel obj = null;
         try {
             obj = repository.findById(id).get();
             repository.delete(obj);
         } catch (NullPointerException ex) {
-            response.getErrors().add("Quarteirão inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Quarteirão inválido");
+            response.getErrors().add("Tipo imóvel inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);

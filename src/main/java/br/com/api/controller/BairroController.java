@@ -3,7 +3,7 @@ package br.com.api.controller;
 import java.util.List;
 
 import br.com.api.model.Bairro;
-import br.com.api.services.impl.BairroServiceImpl;
+import br.com.api.service.impl.BairroServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

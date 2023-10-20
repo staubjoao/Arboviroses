@@ -23,4 +23,8 @@ public class Quarteirao {
     @ManyToOne
     @JoinColumn(name = "fk_localidade_id")
     private Localidade localidade;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_rota_id")
+    private Rota rota;
 }

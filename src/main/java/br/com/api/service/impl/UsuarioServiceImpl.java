@@ -1,4 +1,4 @@
-package br.com.api.services.impl;
+package br.com.api.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

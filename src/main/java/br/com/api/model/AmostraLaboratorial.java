@@ -30,6 +30,7 @@ public class AmostraLaboratorial {
     @Column(nullable = false, length = 400)
     @Valid
     @NotEmpty(message = "{campo.quantidade.obrigatorio}")
+    
     private Integer quantidadeTubitos;
 
     // @ManyToOne

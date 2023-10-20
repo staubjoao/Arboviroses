@@ -1,4 +1,4 @@
-package br.com.api.services.impl;
+package br.com.api.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,7 @@ import org.springframework.validation.ObjectError;
 import br.com.api.model.Localidade;
 import br.com.api.repository.LocalidadeRepository;
 import br.com.api.responses.Response;
-import br.com.api.services.LocalidadeService;
+import br.com.api.service.LocalidadeService;
 import jakarta.validation.Valid;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package br.com.api.controller;
 
 import java.util.List;
 import br.com.api.model.AmostraLaboratorial;
-import br.com.api.services.impl.AmostraLaboratorialServiceImpl;
+import br.com.api.service.impl.AmostraLaboratorialServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +19,7 @@ public class AmostraLaboratorialController {
     @Autowired
     private AmostraLaboratorialServiceImpl service;
 
+    
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<AmostraLaboratorial>> post(@Valid @RequestBody AmostraLaboratorial amostraLaboratorial, BindingResult result) {

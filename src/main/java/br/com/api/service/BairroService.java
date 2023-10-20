@@ -1,4 +1,4 @@
-package br.com.api.services;
+package br.com.api.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

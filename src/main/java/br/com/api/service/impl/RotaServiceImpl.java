@@ -1,74 +1,72 @@
-package br.com.api.services.impl;
+package br.com.api.service.impl;
 
+import br.com.api.model.Rota;
+import br.com.api.repository.RotaRepository;
+import br.com.api.responses.Response;
+import br.com.api.service.RotaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
-import br.com.api.model.Bairro;
-import br.com.api.repository.BairroRepository;
-import br.com.api.responses.Response;
-import br.com.api.services.BairroService;
-import jakarta.validation.Valid;
-
 import java.util.List;
 
 @Component
-public class BairroServiceImpl implements BairroService {
+public class RotaServiceImpl implements RotaService {
 
     @Autowired
-    private BairroRepository repository;
+    private RotaRepository repository;
 
     @Override
-    public ResponseEntity<Response<Bairro>> salvar(@Valid Bairro bairro, BindingResult result) {
-        Response<Bairro> response = new Response<Bairro>();
-        response.setData(bairro);
+    public ResponseEntity<Response<Rota>> salvar(@Valid Rota rota, BindingResult result) {
+        Response<Rota> response = new Response<Rota>();
+        response.setData(rota);
         if (result.hasErrors()) {
             for (ObjectError erros : result.getAllErrors()) {
                 response.getErrors().add(erros.getDefaultMessage());
             }
             return ResponseEntity.badRequest().body(response);
         }
-        repository.save(bairro);
+        repository.save(rota);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public List<Bairro> getlAll() {
+    public List<Rota> getlAll() {
         return repository.findAll();
     }
 
     @Override
-    public ResponseEntity<Response<Bairro>> getById(Integer id) {
-        Response<Bairro> response = new Response<Bairro>();
-        Bairro obj = null;
+    public ResponseEntity<Response<Rota>> getById(Integer id) {
+        Response<Rota> response = new Response<Rota>();
+        Rota obj = null;
         try {
             obj = repository.findById(id).get();
         } catch (NullPointerException ex) {
-            response.getErrors().add("Bairro inválido");
+            response.getErrors().add("Rota inválida");
         } catch (Exception ex) {
-            response.getErrors().add("Bairro inválido");
+            response.getErrors().add("Rota inválida");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<Response<Bairro>> deleteById(Integer id) {
-        Response<Bairro> response = new Response<Bairro>();
-        Bairro obj = null;
+    public ResponseEntity<Response<Rota>> deleteById(Integer id) {
+        Response<Rota> response = new Response<Rota>();
+        Rota obj = null;
         try {
             obj = repository.findById(id).get();
             repository.delete(obj);
         } catch (NullPointerException ex) {
-            response.getErrors().add("Bairro inválido");
+            response.getErrors().add("Rota inválida");
         } catch (Exception ex) {
-            response.getErrors().add("Bairro inválido");
+            response.getErrors().add("Rota inválida");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
     }
-
 
 }

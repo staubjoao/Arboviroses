@@ -1,4 +1,4 @@
-package br.com.api.services.impl;
+package br.com.api.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,14 @@ import org.springframework.validation.ObjectError;
 import br.com.api.model.AmostraLaboratorial;
 import br.com.api.repository.AmostraLaboratorialRepository;
 import br.com.api.responses.Response;
-import br.com.api.services.AmostraLaboratorialService;
+import br.com.api.service.AmostraLaboratorialService;
 import jakarta.validation.Valid;
 
 import java.util.List;
 
 @Component
+
+
 public class AmostraLaboratorialServiceImpl implements AmostraLaboratorialService {
     
     @Autowired

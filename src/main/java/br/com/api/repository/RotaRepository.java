@@ -1,12 +1,9 @@
 package br.com.api.repository;
 
+import br.com.api.model.Rota;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.api.model.AmostraLaboratorial;
-
 @Repository
-
-public interface AmostraLaboratorialRepository extends JpaRepository<AmostraLaboratorial, Integer> {
-    
+public interface RotaRepository extends JpaRepository<Rota, Integer> {
 }

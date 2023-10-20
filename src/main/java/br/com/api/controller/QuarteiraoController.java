@@ -1,15 +1,12 @@
 package br.com.api.controller;
 
-import br.com.api.model.Bairro;
-import br.com.api.model.Logradouro;
 import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
-import br.com.api.services.impl.QuarteiraoServiceImpl;
+import br.com.api.service.impl.QuarteiraoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;

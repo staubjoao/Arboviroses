@@ -1,7 +1,7 @@
 package br.com.api.controller;
 
 import br.com.api.model.TipoImovel;
-import br.com.api.services.impl.TipoImovelServiceImpl;
+import br.com.api.service.impl.TipoImovelServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
