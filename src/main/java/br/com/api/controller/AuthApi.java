@@ -24,7 +24,7 @@ import br.com.api.dtos.AuthResponse;
 import br.com.api.model.Role;
 import br.com.api.model.Usuario;
 import br.com.api.security.JwtTokenUtil;
-import br.com.api.services.impl.UsuarioServiceImpl;
+import br.com.api.service.impl.UsuarioServiceImpl;
 import org.modelmapper.ModelMapper;
 
 @RestController
