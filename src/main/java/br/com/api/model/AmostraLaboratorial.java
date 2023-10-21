@@ -30,14 +30,13 @@ public class AmostraLaboratorial {
     @Column(nullable = false, length = 400)
     @Valid
     @NotEmpty(message = "{campo.quantidade.obrigatorio}")
-    
     private Integer quantidadeTubitos;
 
     // @ManyToOne
     // @JoinColumn(name = "fk_registro_id")
     // private RegistroDiario registrodiario;
 
-    // @OneToOne
-    // @JoinColumn(name = "fk_dados_laboratorias_id")
-    // private DadosLaboratoriais dadoslaboratorias
+     @OneToOne
+     @JoinColumn(name = "fk_dados_laboratorias_id")
+     private DadosLaboratoriais dadoslaboratorias;
 }
