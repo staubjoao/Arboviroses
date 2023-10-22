@@ -12,7 +12,7 @@ import br.com.api.responses.Response;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/amostraLaboratorial")
+@RequestMapping("/api/amostra_laboratorial")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AmostraLaboratorialController {
     

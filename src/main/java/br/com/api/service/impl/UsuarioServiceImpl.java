@@ -27,8 +27,8 @@ public class UsuarioServiceImpl {
     
     @Autowired
 	private UsuarioRepository usuarioRepository;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	// @Autowired
+	// private PasswordEncoder passwordEncoder;
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired

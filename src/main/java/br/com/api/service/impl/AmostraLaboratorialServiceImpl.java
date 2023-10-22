@@ -16,8 +16,6 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @Component
-
-
 public class AmostraLaboratorialServiceImpl implements AmostraLaboratorialService {
     
     @Autowired

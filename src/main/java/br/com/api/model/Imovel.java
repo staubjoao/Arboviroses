@@ -46,4 +46,8 @@ public class Imovel {
     @JoinColumn(name = "fk_tipo_imovel_id")
     private TipoImovel tipoImovel;
 
+    // @ManyToOne
+    // @JoinColumn(name = "fk_registro_id")
+    // private RegistroDiario registrodiario;
+
 }
