@@ -19,16 +19,6 @@ public class RegistroAntivetorial {
     @Column(name = "registro_antivetorial_id")
     private Integer id;
 
-    @Column(nullable = false, length = 100)
-    @Valid
-    @NotNull(message = "{campo.localidade.obrigatorio}")
-    private Localidade localidade;
-
-    @Column(nullable = false, length = 100)
-    @Valid
-    @NotNull(message = "{campo.rota.obrigatorio}")
-    private Rota rota;
-
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     @NotNull(message = "{campo.data.obrigatorio}")

@@ -30,6 +30,7 @@ import org.modelmapper.ModelMapper;
 @RestController
 @RequestMapping("/auth")
 public class AuthApi {
+
 	@Autowired AuthenticationManager authManager;
 	@Autowired JwtTokenUtil jwtUtil;
 	@Autowired UsuarioServiceImpl userService;

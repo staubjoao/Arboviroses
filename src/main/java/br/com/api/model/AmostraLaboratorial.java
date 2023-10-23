@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Table(name = "amostra_laboratorial")
 public class AmostraLaboratorial {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "amostra_id")
@@ -32,11 +32,11 @@ public class AmostraLaboratorial {
     @NotEmpty(message = "{campo.quantidade.obrigatorio}")
     private Integer quantidadeTubitos;
 
-    // @ManyToOne
-    // @JoinColumn(name = "fk_registro_id")
-    // private RegistroDiario registrodiario;
+    @ManyToOne
+    @JoinColumn(name = "fk_registro_antivetorial_id")
+    private RegistroAntivetorial registroAntivetorial;
 
-     @OneToOne
-     @JoinColumn(name = "fk_dados_laboratorias_id")
-     private DadosLaboratoriais dadoslaboratorias;
+    @OneToOne
+    @JoinColumn(name = "fk_dados_laboratorias_id")
+    private DadosLaboratoriais dadoslaboratorias;
 }
