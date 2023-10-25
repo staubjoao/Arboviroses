@@ -15,7 +15,7 @@ public class Bloqueio {
     private Integer id;
 
     @Column
-    private String Descricao;
+    private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "fk_rota_id")

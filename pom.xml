@@ -76,6 +76,12 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>me.atlis</groupId>
+			<artifactId>nominatim-api</artifactId>
+			<version>RELEASE</version>
+		</dependency>
 		
 		<dependency>
 			<!-- Model Mapper -->

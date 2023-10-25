@@ -50,4 +50,8 @@ public class Imovel {
     @JoinColumn(name = "fk_registro_antivetorial_id")
     private RegistroAntivetorial registroAntivetorial;
 
+    @OneToOne
+    @JoinColumn(name = "fk_geolocalizacao_id")
+    private Geolocalizacao geolocalizacao;
+
 }
