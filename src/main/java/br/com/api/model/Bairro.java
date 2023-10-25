@@ -22,4 +22,8 @@ public class Bairro {
     @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_cidade_id")
+    private Cidade cidade;
+
 }
