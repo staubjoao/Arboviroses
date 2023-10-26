@@ -1,13 +1,13 @@
 package br.com.api.service.impl;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.com.api.model.Geolocalizacao;
 import br.com.api.model.Imovel;
 import br.com.api.repository.ImovelRepository;
 import br.com.api.responses.Response;
 import br.com.api.service.ImovelService;
-import com.atlis.location.model.impl.Address;
-import com.atlis.location.model.impl.MapPoint;
-import com.atlis.location.nominatim.NominatimAPI;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -23,25 +24,44 @@ public class ImovelServiceImpl implements ImovelService {
     @Autowired
     private ImovelRepository repository;
 
+    @Autowired
+    private GeolocalizacaoServiceImpl serviceGeolocalizacao;
+
+
     @Override
     public ResponseEntity<Response<Imovel>> salvar(@Valid Imovel imovel, BindingResult result) {
-        String endpointUrl = "https://nominatim.openstreetmap.org/";
-        Address address = new Address();
-//        address.setCity(imovel.getC);
-        address.setStreet(String.valueOf(imovel.getLogradouro().getLogradouro()));
-        address.setHousenumber(String.valueOf(imovel.getNumero()));
-        address.setCity("Maringá");
-        address.setState("Paraná");
-        address.setCountry("Brasil");
-        MapPoint mapPoint = NominatimAPI.with(endpointUrl).getMapPointFromAddress(address, 5);
+        Response<Imovel> response = new Response<Imovel>();
+
+        String query = "" +
+                imovel.getLogradouro().getLogradouro().replace(" ", "+") +
+                "+" +
+                imovel.getLocalidade().replace(" ", "+") +
+                "+" +
+                imovel.getNumero() +
+                "+" +
+                imovel.getBairro().getCidade().getCidade().replace(" ", "+") +
+                "+" +
+                "Paraná";
 
         Geolocalizacao geolocalizacao = new Geolocalizacao();
-        geolocalizacao.setLatitude(mapPoint.getLatitude());
-        geolocalizacao.setLongitude(mapPoint.getLongitude());
+
+        JSONObject retorno;
+        try {
+            retorno = serviceGeolocalizacao.searchGeo(query);
+        } catch (IOException e) {
+            response.getErrors().add("Falha ao buscar a geolocalização");
+            throw new RuntimeException(e);
+        }
+
+        try {
+            geolocalizacao.setLongitude(retorno.getString("lon"));
+            geolocalizacao.setLatitude(retorno.getString("lat"));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         imovel.setGeolocalizacao(geolocalizacao);
 
-        Response<Imovel> response = new Response<Imovel>();
         response.setData(imovel);
         if (result.hasErrors()) {
             for (ObjectError erros : result.getAllErrors()) {

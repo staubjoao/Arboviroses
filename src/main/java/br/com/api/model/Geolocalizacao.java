@@ -15,9 +15,9 @@ public class Geolocalizacao {
     private Integer id;
 
     @Column
-    private Double latitude;
+    private String latitude;
 
     @Column
-    private  Double longitude;
+    private  String longitude;
 
 }
