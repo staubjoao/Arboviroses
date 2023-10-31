@@ -96,9 +96,4 @@ public class RegistroAntivetorial {
         this.horaAtividade = sdf.parse(horaAtividade);
     }
 
-    // The method setRota(Rota) in the type RegistroAntivetorial is not applicable for the arguments (String)Java(67108979)
-    // corrija esse erro
-    public void setRota(Rota rota) {
-    }
-
 }
