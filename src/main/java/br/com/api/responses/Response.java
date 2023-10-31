@@ -4,6 +4,7 @@ package br.com.api.responses;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.api.model.RotasAgentes;
 import lombok.Data;
 
 @Data

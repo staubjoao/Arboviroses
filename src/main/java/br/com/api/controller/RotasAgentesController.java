@@ -68,4 +68,11 @@ public class RotasAgentesController {
     public List<Quarteirao> getQuarteiroesByAgente(@PathVariable Long id) {
          return service.getQuarteiroesByAgenteId(id);
     }
+
+    @PostMapping("/cadastrar-rota/{idUsuario}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Response<RotasAgentes>> cadastrarRotasParaAgente(@PathVariable Long idUsuario, @RequestBody List<Quarteirao> quarteiroes)
+    {
+        return service.cadastrarRotaParaAgente(idUsuario, quarteiroes);
+    }
 }

@@ -21,5 +21,5 @@ public interface RotasAgentesService {
     ResponseEntity<Response<RotasAgentes>> getById(Integer id);
     ResponseEntity<Response<RotasAgentes>> deleteById(Integer id);
     public List<Quarteirao> getQuarteiroesByAgenteId(Long id);
-
+    ResponseEntity<Response<RotasAgentes>> cadastrarRotaParaAgente(Long idUsuario, List<Quarteirao> quarteiroes);
 }

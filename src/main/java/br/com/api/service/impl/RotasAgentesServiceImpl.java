@@ -1,5 +1,6 @@
 package br.com.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,4 +91,22 @@ public class RotasAgentesServiceImpl implements RotasAgentesService {
         return quarteiroes;
     }
 
+
+    @Override
+    public ResponseEntity<Response<RotasAgentes>> cadastrarRotaParaAgente(Long idUsuario, List<Quarteirao> quarteiroes) {
+        Usuario agente = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agente não encontrado"));
+
+        List<RotasAgentes> rotas = new ArrayList<>();
+        for (Quarteirao quarteirao : quarteiroes) {
+            RotasAgentes rota = new RotasAgentes();
+            rota.setUsuario(agente);
+            rota.setQuarteirao(quarteirao);
+            rotas.add(rota);
+        }
+
+        List<RotasAgentes> savedRotas = repository.saveAll(rotas);
+        Response<RotasAgentes> response = new Response<>();
+        response.setData((RotasAgentes) savedRotas);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 }
