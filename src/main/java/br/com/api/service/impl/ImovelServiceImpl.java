@@ -60,6 +60,7 @@ public class ImovelServiceImpl implements ImovelService {
             throw new RuntimeException(e);
         }
 
+
         imovel.setGeolocalizacao(geolocalizacao);
 
         response.setData(imovel);
@@ -69,6 +70,9 @@ public class ImovelServiceImpl implements ImovelService {
             }
             return ResponseEntity.badRequest().body(response);
         }
+
+        System.out.println("Teste!!");
+
         repository.save(imovel);
         return ResponseEntity.ok(response);
     }
