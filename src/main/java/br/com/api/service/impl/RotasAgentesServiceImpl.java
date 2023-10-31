@@ -93,8 +93,17 @@ public class RotasAgentesServiceImpl implements RotasAgentesService {
 
 
     @Override
-    public ResponseEntity<Response<RotasAgentes>> cadastrarRotaParaAgente(Long idUsuario, List<Quarteirao> quarteiroes) {
-        Usuario agente = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agente não encontrado"));
+    public ResponseEntity<Response<List<RotasAgentes>>> cadastrarRotaParaAgente(Long idUsuario, List<Quarteirao> quarteiroes) {
+        Response<List<RotasAgentes>> response = new Response<>();
+
+        Usuario agenteId = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agente não encontrado"));
+
+        Usuario agente = new Usuario();
+        agente.setId(agenteId.getId());
+        agente.setLogin(agenteId.getLogin());
+        agente.setNome(agenteId.getNome());
+        agente.setProfile(agenteId.getProfile());
+        agente.setSenha(agenteId.getSenha());
 
         List<RotasAgentes> rotas = new ArrayList<>();
         for (Quarteirao quarteirao : quarteiroes) {
@@ -105,8 +114,8 @@ public class RotasAgentesServiceImpl implements RotasAgentesService {
         }
 
         List<RotasAgentes> savedRotas = repository.saveAll(rotas);
-        Response<RotasAgentes> response = new Response<>();
-        response.setData((RotasAgentes) savedRotas);
+        response.setData(savedRotas);
+        System.out.println("Teste");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

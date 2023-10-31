@@ -71,7 +71,7 @@ public class RotasAgentesController {
 
     @PostMapping("/cadastrar-rota/{idUsuario}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<RotasAgentes>> cadastrarRotasParaAgente(@PathVariable Long idUsuario, @RequestBody List<Quarteirao> quarteiroes)
+    public ResponseEntity<Response<List<RotasAgentes>>> cadastrarRotasParaAgente(@PathVariable Long idUsuario, @RequestBody List<Quarteirao> quarteiroes)
     {
         return service.cadastrarRotaParaAgente(idUsuario, quarteiroes);
     }

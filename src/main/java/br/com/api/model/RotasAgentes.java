@@ -6,11 +6,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "rotasAgentes")
+@Table(name = "rotas_agentes")
 public class RotasAgentes {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rotas_agentes_id")
     private Integer id;
 	
 	@ManyToOne
