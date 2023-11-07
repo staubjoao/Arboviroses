@@ -21,8 +21,5 @@ public class Bloqueio {
     @JoinColumn(name = "fk_rota_id")
     private RotasAgentes rota;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_registro_antivetorial_id")
-    private RegistroAntivetorial registroAntivetorial;
 
 }
