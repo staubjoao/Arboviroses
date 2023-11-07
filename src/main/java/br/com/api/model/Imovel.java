@@ -30,6 +30,12 @@ public class Imovel {
     @Column
     private String complemento;
 
+    @Column
+    private String latitude;
+
+    @Column
+    private  String longitude;
+
     @ManyToOne
     @JoinColumn(name = "fk_bairro_id")
     private Bairro bairro;
@@ -49,9 +55,5 @@ public class Imovel {
     @ManyToOne
     @JoinColumn(name = "fk_registro_antivetorial_id")
     private RegistroAntivetorial registroAntivetorial;
-
-    @OneToOne
-    @JoinColumn(name = "fk_geolocalizacao_id")
-    private Geolocalizacao geolocalizacao;
 
 }

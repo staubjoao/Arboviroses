@@ -46,11 +46,11 @@ public class ImovelController {
         imovel.setNumero(imovelDTO.getNumero());
         imovel.setComplemento(imovelDTO.getComplemento());
 
-        ResponseEntity<Response<Bairro>> bairro = serviceBairro.getById((imovelDTO).getBairro_id());
-        ResponseEntity<Response<Logradouro>> logradouro = serviceLogradouro.getById(imovelDTO.getLogradouro_id());
-        ResponseEntity<Response<Quarteirao>> quarteirao = serviceQuarteirao.getById(imovelDTO.getQuarteirao_id());
-        ResponseEntity<Response<RegistroAntivetorial>> registro = serviceRegistro.getById(imovelDTO.getRegistro_antivetorial_id());
-        ResponseEntity<Response<TipoImovel>> tipoImovel = serviceTipoImovel.getById(imovelDTO.getTipo_imovel_id());
+        ResponseEntity<Response<Bairro>> bairro = serviceBairro.getById((imovelDTO).getBairroId());
+        ResponseEntity<Response<Logradouro>> logradouro = serviceLogradouro.getById(imovelDTO.getLogradouroId());
+        ResponseEntity<Response<Quarteirao>> quarteirao = serviceQuarteirao.getById(imovelDTO.getQuarteiraoId());
+        ResponseEntity<Response<RegistroAntivetorial>> registro = serviceRegistro.getById(imovelDTO.getRegistroAntivetorialId());
+        ResponseEntity<Response<TipoImovel>> tipoImovel = serviceTipoImovel.getById(imovelDTO.getTipoImovelId());
 
         imovel.setBairro(bairro.getBody().getData());
         imovel.setLogradouro(logradouro.getBody().getData());
@@ -64,8 +64,6 @@ public class ImovelController {
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     private List<Imovel> getAll() {
-        System.out.println("teste");
-
         return service.getlAll();
     }
 

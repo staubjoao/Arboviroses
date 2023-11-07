@@ -1,9 +1,12 @@
 package br.com.api.service.impl;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.api.model.Geolocalizacao;
 import br.com.api.model.Imovel;
 import br.com.api.repository.ImovelRepository;
 import br.com.api.responses.Response;
@@ -12,6 +15,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
@@ -24,44 +28,32 @@ public class ImovelServiceImpl implements ImovelService {
     @Autowired
     private ImovelRepository repository;
 
-    @Autowired
-    private GeolocalizacaoServiceImpl serviceGeolocalizacao;
-
+    private final OkHttpClient httpClient = new OkHttpClient();
 
     @Override
     public ResponseEntity<Response<Imovel>> salvar(@Valid Imovel imovel, BindingResult result) {
         Response<Imovel> response = new Response<Imovel>();
 
-        String query = "" +
-                imovel.getLogradouro().getLogradouro().replace(" ", "+") +
-                "+" +
-                imovel.getLocalidade().replace(" ", "+") +
-                "+" +
-                imovel.getNumero() +
-                "+" +
-                imovel.getBairro().getCidade().getCidade().replace(" ", "+") +
-                "+" +
-                "Paraná";
+        String query = getString(imovel);
 
-        Geolocalizacao geolocalizacao = new Geolocalizacao();
+        System.out.println(query);
 
         JSONObject retorno;
         try {
-            retorno = serviceGeolocalizacao.searchGeo(query);
+            retorno = this.searchGeo(query);
         } catch (IOException e) {
             response.getErrors().add("Falha ao buscar a geolocalização");
             throw new RuntimeException(e);
         }
 
+        System.out.println(retorno);
+
         try {
-            geolocalizacao.setLongitude(retorno.getString("lon"));
-            geolocalizacao.setLatitude(retorno.getString("lat"));
+            imovel.setLongitude(retorno.getString("lon"));
+            imovel.setLatitude(retorno.getString("lat"));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
-
-        imovel.setGeolocalizacao(geolocalizacao);
 
         response.setData(imovel);
         if (result.hasErrors()) {
@@ -71,10 +63,48 @@ public class ImovelServiceImpl implements ImovelService {
             return ResponseEntity.badRequest().body(response);
         }
 
-        System.out.println("Teste!!");
-
         repository.save(imovel);
         return ResponseEntity.ok(response);
+    }
+
+    @NotNull
+    public JSONObject searchGeo(String query) throws IOException {
+        Request request = new Request.Builder()
+                .url("https://nominatim.openstreetmap.org/search?format=json&q=" + query)
+                .build();
+
+        try (okhttp3.Response response = httpClient.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            JSONArray jsonArray = new JSONArray(response.body().string());
+
+
+            if(jsonArray.length() > 0) {
+                return jsonArray.getJSONObject(0);
+            }
+
+            return null;
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @NotNull
+    private static String getString(Imovel imovel) {
+        String logradouro = imovel.getLogradouro().getLogradouro();
+        String numero = imovel.getNumero();
+        String bairro = imovel.getBairro().getNome();
+        String cidade = imovel.getBairro().getCidade().getCidade();
+
+        return logradouro.replace(" ", "+") +
+                "+" +
+                numero +
+                "+" +
+                bairro.replace(" ", "+") +
+                "+" +
+                cidade.replace(" ", "+") +
+                "+" +
+                "Paraná";
     }
 
     @Override

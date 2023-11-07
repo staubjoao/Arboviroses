@@ -10,9 +10,9 @@ public class ImovelDTO {
     private String localidade;
     private String numero;
     private String complemento;
-    private Integer bairro_id;
-    private Integer logradouro_id;
-    private Integer quarteirao_id;
-    private Integer tipo_imovel_id;
-    private Integer registro_antivetorial_id;
+    private Integer bairroId;
+    private Integer logradouroId;
+    private Integer quarteiraoId;
+    private Integer tipoImovelId;
+    private Integer registroAntivetorialId;
 }
