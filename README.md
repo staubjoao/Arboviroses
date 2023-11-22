@@ -2,7 +2,7 @@
 
 ## Pré-requisitos
 
-- Java 11 ou superior
+- Java 11
 - Maven
 - PostgreSQL
 
