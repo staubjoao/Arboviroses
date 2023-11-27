@@ -23,6 +23,7 @@ public class BairroController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Bairro>> post(@Valid @RequestBody Bairro bairro, BindingResult result) {
+        bairro.setNome(bairro.getNome().toUpperCase());
         return service.salvar(bairro, result);
     }
 

@@ -22,4 +22,6 @@ public interface BairroService {
 
     ResponseEntity<Response<Bairro>> deleteById(Integer id);
 
+    boolean isNomeValido(String nome);
+
 }

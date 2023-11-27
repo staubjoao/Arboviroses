@@ -22,6 +22,12 @@ public class BairroServiceImpl implements BairroService {
 
     @Override
     public ResponseEntity<Response<Bairro>> salvar(@Valid Bairro bairro, BindingResult result) {
+        
+        if (!isNomeValido(bairro.getNome()))
+        {
+            result.addError(new ObjectError("bairro", "Formato invalido para o nome do bairro."));
+        }
+        
         Response<Bairro> response = new Response<Bairro>();
         response.setData(bairro);
         if (result.hasErrors()) {
@@ -70,5 +76,26 @@ public class BairroServiceImpl implements BairroService {
         return ResponseEntity.ok(response);
     }
 
-
+    @Override
+    public boolean isNomeValido(String nome) {
+        // Verifica se o nome não é nulo e corresponde ao padrão desejado
+        if (nome != null && nome.matches("^[A-ZÁÉÍÓÚÇÃÕa-záéíóúçãõ\\s]+(?:\\s\\d+)?$")) {
+            // Separa o nome do possível número
+            String[] partes = nome.split("\\s");
+    
+            // Se há mais de uma parte e a última parte é um número
+            if (partes.length > 1 && partes[partes.length - 1].matches("\\d+")) {
+                // Converte o número para um inteiro
+                int numero = Integer.parseInt(partes[partes.length - 1]);
+    
+                // Verifica se o número é maior que zero e não tem zeros à esquerda
+                return numero > 0 && partes[partes.length - 1].equals(Integer.toString(numero));
+            } else {
+                // Se não há número ou não é um número válido
+                return true;
+            }
+        }
+    
+        return false;
+    }
 }
