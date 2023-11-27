@@ -24,6 +24,7 @@ public class CidadeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Cidade>> post(@Valid @RequestBody Cidade cidade, BindingResult result) {
+        cidade.setCidade(cidade.getCidade().toUpperCase());
         return service.salvar(cidade, result);
     }
 

@@ -24,6 +24,7 @@ public class LogradouroController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Logradouro>> post(@Valid @RequestBody Logradouro logradouro, BindingResult result) {
+        logradouro.setLogradouro(logradouro.getLogradouro().toUpperCase());
         return service.salvar(logradouro, result);
     }
 
