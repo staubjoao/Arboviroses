@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.api.model.Imovel;
+import br.com.api.model.Quarteirao;
 import br.com.api.repository.ImovelRepository;
 import br.com.api.responses.Response;
 import br.com.api.service.ImovelService;
@@ -143,4 +144,9 @@ public class ImovelServiceImpl implements ImovelService {
         return ResponseEntity.ok(response);
     }
 
+    @Override
+    public List<Imovel> getByQuateirao(Quarteirao quarteirao)
+    {
+        return repository.findByQuarteirao(quarteirao);
+    }
 }

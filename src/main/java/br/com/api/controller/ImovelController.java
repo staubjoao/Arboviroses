@@ -84,4 +84,13 @@ public class ImovelController {
     public ResponseEntity<Response<Imovel>> delete(@PathVariable Integer id) {
         return service.deleteById(id);
     }
+
+    @GetMapping("/quarteirao/{quarteiraoId}")
+    @ResponseStatus(HttpStatus.OK)
+    private List<Imovel> getByQuarteirao(@PathVariable Integer quarteiraoId)
+    {
+        Quarteirao quarteirao = serviceQuarteirao.getById(quarteiraoId).getBody().getData();
+        return service.getByQuateirao(quarteirao);
+        
+    }
 }
