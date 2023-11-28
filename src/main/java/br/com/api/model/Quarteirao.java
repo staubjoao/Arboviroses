@@ -4,7 +4,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import javax.persistence.*;
-
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,5 +24,8 @@ public class Quarteirao {
     @ManyToOne
     @JoinColumn(name = "fk_localidade_id")
     private Localidade localidade;
+
+    @OneToMany(mappedBy = "quarteirao")
+    private Set<RotasAgentes> rotasAgentes = new HashSet<>();
 
 }
