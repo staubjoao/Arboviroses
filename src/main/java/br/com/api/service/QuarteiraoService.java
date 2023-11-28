@@ -16,6 +16,5 @@ public interface QuarteiraoService {
     List<Quarteirao> getAll();
     ResponseEntity<Response<Quarteirao>> getById(Integer id);
     ResponseEntity<Response<Quarteirao>> deleteById(Integer id);
-
     List<Quarteirao> getByUsuario(Long id);
 }

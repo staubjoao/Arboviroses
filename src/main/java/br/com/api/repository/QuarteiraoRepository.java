@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer> {
 
-    @Query("SELECT q FROM Quarteirao q JOIN q.rotasAgentes ra WHERE ra.usuario.id = :usuarioId")
+    @Query(value = "SELECT q FROM Quarteirao q JOIN q.rotasAgentes ra WHERE ra.usuario.id = :usuarioId")
     List<Quarteirao> findQuarteiroesByUsuarioId(@Param("usuarioId") Long usuarioId);
 }
