@@ -25,7 +25,4 @@ public class Quarteirao {
     @JoinColumn(name = "fk_localidade_id")
     private Localidade localidade;
 
-    @OneToMany(mappedBy = "quarteirao")
-    private Set<RotasAgentes> rotasAgentes = new HashSet<>();
-
 }
