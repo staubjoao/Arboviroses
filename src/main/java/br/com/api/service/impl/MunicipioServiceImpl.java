@@ -1,10 +1,9 @@
 package br.com.api.service.impl;
 
-import br.com.api.model.Cidade;
-import br.com.api.repository.BairroRepository;
-import br.com.api.repository.CidadeRepository;
+import br.com.api.model.Municipio;
+import br.com.api.repository.MunicipioRepository;
 import br.com.api.responses.Response;
-import br.com.api.service.CidadeService;
+import br.com.api.service.MunicipioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,56 +14,56 @@ import org.springframework.validation.ObjectError;
 import java.util.List;
 
 @Component
-public class CidadeServiceImpl implements CidadeService {
+public class MunicipioServiceImpl implements MunicipioService {
 
     @Autowired
-    private CidadeRepository repository;
+    private MunicipioRepository repository;
 
     @Override
-    public ResponseEntity<Response<Cidade>> salvar(@Valid Cidade cidade, BindingResult result) {
-        Response<Cidade> response = new Response<Cidade>();
-        response.setData(cidade);
+    public ResponseEntity<Response<Municipio>> salvar(@Valid Municipio municipio, BindingResult result) {
+        Response<Municipio> response = new Response<Municipio>();
+        response.setData(municipio);
         if (result.hasErrors()) {
             for (ObjectError erros : result.getAllErrors()) {
                 response.getErrors().add(erros.getDefaultMessage());
             }
             return ResponseEntity.badRequest().body(response);
         }
-        repository.save(cidade);
+        repository.save(municipio);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public List<Cidade> getlAll() {
+    public List<Municipio> getlAll() {
         return repository.findAll();
     }
 
     @Override
-    public ResponseEntity<Response<Cidade>> getById(Integer id) {
-        Response<Cidade> response = new Response<Cidade>();
-        Cidade obj = null;
+    public ResponseEntity<Response<Municipio>> getById(Integer id) {
+        Response<Municipio> response = new Response<Municipio>();
+        Municipio obj = null;
         try {
             obj = repository.findById(id).get();
         } catch (NullPointerException ex) {
-            response.getErrors().add("Cidade inválida");
+            response.getErrors().add("Município inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Cidade inválida");
+            response.getErrors().add("Município inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<Response<Cidade>> deleteById(Integer id) {
-        Response<Cidade> response = new Response<Cidade>();
-        Cidade obj = null;
+    public ResponseEntity<Response<Municipio>> deleteById(Integer id) {
+        Response<Municipio> response = new Response<Municipio>();
+        Municipio obj = null;
         try {
             obj = repository.findById(id).get();
             repository.delete(obj);
         } catch (NullPointerException ex) {
-            response.getErrors().add("Cidade inválida");
+            response.getErrors().add("Município inválido");
         } catch (Exception ex) {
-            response.getErrors().add("Cidade inválida");
+            response.getErrors().add("Município inválido");
         }
         response.setData(obj);
         return ResponseEntity.ok(response);
