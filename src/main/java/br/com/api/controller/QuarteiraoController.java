@@ -49,4 +49,11 @@ public class QuarteiraoController {
     public ResponseEntity<Response<Quarteirao>> delete(@PathVariable Integer id) {
         return service.deleteById(id);
     }
+
+    @GetMapping("/agente/{usuarioId}")
+    @ResponseStatus(HttpStatus.OK)
+    private List<Quarteirao> getByQuarteirao(@PathVariable Long usuarioId)
+    {
+        return service.getByUsuario(usuarioId);
+    }
 }
