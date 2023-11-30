@@ -50,4 +50,10 @@ public class LogradouroController {
     public ResponseEntity<Response<Logradouro>> delete(@PathVariable Integer id) {
         return service.deleteById(id);
     }
+
+    @GetMapping("/search")
+    @ResponseBody
+    private List<String> search(@RequestParam String input) {
+        return service.search(input);
+    }
 }
