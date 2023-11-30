@@ -7,7 +7,7 @@ import jakarta.validation.Valid;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name = "Logradouro")
 @Table(name = "logradouro")
 public class Logradouro {
 

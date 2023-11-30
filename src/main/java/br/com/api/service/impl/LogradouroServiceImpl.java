@@ -67,4 +67,10 @@ public class LogradouroServiceImpl implements LogradouroService {
         response.setData(obj);
         return ResponseEntity.ok(response);
     }
+
+    @Override
+    public List<String> search(String keyword) {
+        return repository.search(keyword);
+    }
+
 }
