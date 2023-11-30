@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -54,21 +55,23 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		http.authorizeRequests().antMatchers("/auth/login", 
-		    		     "/auth/*", 
-		    		     "/docs/**", 
-		    		     "/usuario", 
+		http.authorizeRequests()
+				.requestMatchers(new RequestHeaderRequestMatcher("Client-Type", "mobile")).permitAll()
+				.antMatchers("/auth/login",
+		    		     "/auth/*",
+		    		     "/docs/**",
+		    		     "/usuario",
 		    		     "/usuario/alterar-senha",
 		    		     "/usuario/alterar-senha/*",
 		    		     "/usuario/*").permitAll()
-			.antMatchers("/swagger-ui").permitAll()
-			.antMatchers("/api", "/api/*", "/api/**","/api/*/**","/api/**/*").authenticated()
-			.anyRequest().denyAll();
+				.antMatchers("/swagger-ui").permitAll()
+				.antMatchers("/api", "/api/*", "/api/**","/api/*/**","/api/**/*").authenticated()
+				.anyRequest().denyAll();
 
 		http.exceptionHandling().authenticationEntryPoint((request, response, ex) -> {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
 		});
-
+		System.out.println(http.headers());
 		http.addFilterBefore((Filter) jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 

@@ -1,6 +1,7 @@
 package br.com.api.service;
 
 import br.com.api.model.Imovel;
+import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,7 @@ public interface ImovelService {
     ResponseEntity<Response<Imovel>> getById(Integer id);
 
     ResponseEntity<Response<Imovel>> deleteById(Integer id);
+
+    List<Imovel> getByQuateirao(Quarteirao quarteirao);
 
 }

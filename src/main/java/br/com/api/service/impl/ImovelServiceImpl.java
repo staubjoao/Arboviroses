@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.api.model.Imovel;
+import br.com.api.model.Quarteirao;
 import br.com.api.repository.ImovelRepository;
 import br.com.api.responses.Response;
 import br.com.api.service.ImovelService;
@@ -15,7 +16,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
@@ -94,7 +94,7 @@ public class ImovelServiceImpl implements ImovelService {
         String logradouro = imovel.getLogradouro().getLogradouro();
         String numero = imovel.getNumero();
         String bairro = imovel.getBairro().getNome();
-        String cidade = imovel.getBairro().getCidade().getCidade();
+        String cidade = imovel.getBairro().getMunicipio().getMunicipio();
 
         return logradouro.replace(" ", "+") +
                 "+" +
@@ -143,4 +143,9 @@ public class ImovelServiceImpl implements ImovelService {
         return ResponseEntity.ok(response);
     }
 
+    @Override
+    public List<Imovel> getByQuateirao(Quarteirao quarteirao)
+    {
+        return repository.findByQuarteirao(quarteirao);
+    }
 }

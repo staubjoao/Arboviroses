@@ -81,7 +81,7 @@ public class RotasAgentesServiceImpl implements RotasAgentesService {
     }
     @Override
     public List<Quarteirao> getQuarteiroesByAgenteId(Long id) {
-        Usuario obj = usuarioRepository.findById(id).orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado"));;
+        Usuario obj = usuarioRepository.findById(id).orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado"));
 
         List<RotasAgentes> rotasAgentes = repository.findByUsuario(obj);
 

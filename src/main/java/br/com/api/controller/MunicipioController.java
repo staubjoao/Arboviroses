@@ -1,9 +1,8 @@
 package br.com.api.controller;
 
-import br.com.api.model.Cidade;
+import br.com.api.model.Municipio;
 import br.com.api.responses.Response;
-import br.com.api.service.impl.BloqueioServiceImpl;
-import br.com.api.service.impl.CidadeServiceImpl;
+import br.com.api.service.impl.MunicipioServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,41 +13,40 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/cidade")
+@RequestMapping("api/municipio")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class CidadeController {
+public class MunicipioController {
 
     @Autowired
-    private CidadeServiceImpl service;
+    private MunicipioServiceImpl service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<Response<Cidade>> post(@Valid @RequestBody Cidade cidade, BindingResult result) {
-        cidade.setCidade(cidade.getCidade().toUpperCase());
-        return service.salvar(cidade, result);
+    private ResponseEntity<Response<Municipio>> post(@Valid @RequestBody Municipio municipio, BindingResult result) {
+        return service.salvar(municipio, result);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    private List<Cidade> getAll() {
+    private List<Municipio> getAll() {
         return service.getlAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private ResponseEntity<Response<Cidade>> getById(@PathVariable Integer id) {
+    private ResponseEntity<Response<Municipio>> getById(@PathVariable Integer id) {
         return service.getById(id);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Response<Cidade>> put(@Valid @RequestBody Cidade cidade, BindingResult result) {
-        return service.salvar(cidade, result);
+    public ResponseEntity<Response<Municipio>> put(@Valid @RequestBody Municipio municipio, BindingResult result) {
+        return service.salvar(municipio, result);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Response<Cidade>> delete(@PathVariable Integer id) {
+    public ResponseEntity<Response<Municipio>> delete(@PathVariable Integer id) {
         return service.deleteById(id);
     }
 }

@@ -16,4 +16,5 @@ public interface LogradouroService {
     List<Logradouro> getAll();
     ResponseEntity<Response<Logradouro>> getById(Integer id);
     ResponseEntity<Response<Logradouro>> deleteById(Integer id);
+    List<String> search(String keyword);
 }

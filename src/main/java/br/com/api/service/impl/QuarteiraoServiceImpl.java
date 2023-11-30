@@ -67,4 +67,9 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
         response.setData(obj);
         return ResponseEntity.ok(response);
     }
+
+    @Override
+    public List<Quarteirao> getByUsuario(Long id) {
+        return repository.findQuarteiroesByUsuarioId(id);
+    }
 }
