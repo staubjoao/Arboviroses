@@ -55,6 +55,6 @@ public class LogradouroController {
     @GetMapping("/search")
     @ResponseBody
     private List<String> search(@RequestParam String input) {
-        return service.search(input);
+        return service.search(input.toUpperCase());
     }
 }
