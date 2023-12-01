@@ -14,5 +14,5 @@ public class ImovelDTO {
     private Integer logradouroId;
     private Integer quarteiraoId;
     private Integer tipoImovelId;
-    private Integer registroAntivetorialId;
+//    private Integer registroAntivetorialId;
 }

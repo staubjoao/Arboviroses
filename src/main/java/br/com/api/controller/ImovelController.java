@@ -49,13 +49,13 @@ public class ImovelController {
         ResponseEntity<Response<Bairro>> bairro = serviceBairro.getById((imovelDTO).getBairroId());
         ResponseEntity<Response<Logradouro>> logradouro = serviceLogradouro.getById(imovelDTO.getLogradouroId());
         ResponseEntity<Response<Quarteirao>> quarteirao = serviceQuarteirao.getById(imovelDTO.getQuarteiraoId());
-        ResponseEntity<Response<RegistroAntivetorial>> registro = serviceRegistro.getById(imovelDTO.getRegistroAntivetorialId());
+//        ResponseEntity<Response<RegistroAntivetorial>> registro = serviceRegistro.getById(imovelDTO.getRegistroAntivetorialId());
         ResponseEntity<Response<TipoImovel>> tipoImovel = serviceTipoImovel.getById(imovelDTO.getTipoImovelId());
 
         imovel.setBairro(bairro.getBody().getData());
         imovel.setLogradouro(logradouro.getBody().getData());
         imovel.setQuarteirao(quarteirao.getBody().getData());
-        imovel.setRegistroAntivetorial(registro.getBody().getData());
+//        imovel.setRegistroAntivetorial(registro.getBody().getData());
         imovel.setTipoImovel(tipoImovel.getBody().getData());
 
         return service.salvar(imovel, result);
