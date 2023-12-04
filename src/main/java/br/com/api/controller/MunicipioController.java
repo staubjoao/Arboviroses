@@ -23,6 +23,7 @@ public class MunicipioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Municipio>> post(@Valid @RequestBody Municipio municipio, BindingResult result) {
+        municipio.setMunicipio(municipio.getMunicipio().toUpperCase());
         return service.salvar(municipio, result);
     }
 
