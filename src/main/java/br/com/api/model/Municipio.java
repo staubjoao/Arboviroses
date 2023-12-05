@@ -25,7 +25,7 @@ public class Municipio {
     private Integer quantidadeImoveisUrbanos;
 
     @Column
-    private Integer quantidadeImoveisRuais;
+    private Integer quantidadeImoveisRurais;
 
     @Column
     private boolean infestado;
