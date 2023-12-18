@@ -3,6 +3,8 @@ package br.com.api.model;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.data.geo.Polygon;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +22,9 @@ public class Quarteirao {
     @Valid
     @NotNull(message = "{campo.numero.quarteirao.vazio}")
     private Integer numero;
+
+    @Column(columnDefinition = "GEOMETRY(POLYGON, 4326)")
+    private Polygon poligono;
 
     @ManyToOne
     @JoinColumn(name = "fk_localidade_id")
