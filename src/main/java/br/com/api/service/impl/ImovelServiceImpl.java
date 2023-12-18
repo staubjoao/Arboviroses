@@ -48,11 +48,16 @@ public class ImovelServiceImpl implements ImovelService {
 
         System.out.println(retorno);
 
-        try {
-            imovel.setLongitude(retorno.getString("lon"));
-            imovel.setLatitude(retorno.getString("lat"));
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+        if (retorno != null) {
+            try {
+                imovel.setLongitude(retorno.getString("lon"));
+                imovel.setLatitude(retorno.getString("lat"));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            imovel.setLongitude("Erro");
+            imovel.setLatitude("Erro");
         }
 
         response.setData(imovel);
@@ -79,7 +84,7 @@ public class ImovelServiceImpl implements ImovelService {
             JSONArray jsonArray = new JSONArray(response.body().string());
 
 
-            if(jsonArray.length() > 0) {
+            if (jsonArray.length() > 0) {
                 return jsonArray.getJSONObject(0);
             }
 
@@ -144,8 +149,7 @@ public class ImovelServiceImpl implements ImovelService {
     }
 
     @Override
-    public List<Imovel> getByQuateirao(Quarteirao quarteirao)
-    {
+    public List<Imovel> getByQuateirao(Quarteirao quarteirao) {
         return repository.findByQuarteirao(quarteirao);
     }
 }
