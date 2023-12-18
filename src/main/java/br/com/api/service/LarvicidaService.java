@@ -1,6 +1,6 @@
 package br.com.api.service;
 
-import br.com.api.model.larvicida;
+import br.com.api.model.Larvicida;
 import br.com.api.responses.Response;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import java.util.List;
 @Service
 public interface LarvicidaService {
 
-    ResponseEntity<Response<larvicida>> salvar(@Valid larvicida larvicida, BindingResult result);
+    ResponseEntity<Response<Larvicida>> salvar(@Valid Larvicida larvicida, BindingResult result);
 
-    List<larvicida> getAll();
+    List<Larvicida> getAll();
 
-    ResponseEntity<Response<larvicida>> getById(Long id);
+    ResponseEntity<Response<Larvicida>> getById(Long id);
 
-    ResponseEntity<Response<larvicida>> deleteById(Long id);
+    ResponseEntity<Response<Larvicida>> deleteById(Long id);
 }

@@ -2,7 +2,7 @@ package br.com.api.controller;
 
 import br.com.api.model.*;
 import br.com.api.responses.Response;
-import br.com.api.service.impl.*;
+import br.com.api.service.impl.LarvicidaServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,27 +21,27 @@ public class LarvicidaController {
     private LarvicidaServiceImpl service;
 
     @PostMapping
-    public ResponseEntity<Response<larvicida>> post(@Valid @RequestBody larvicida larvicida, BindingResult result) {
+    public ResponseEntity<Response<Larvicida>> post(@Valid @RequestBody Larvicida larvicida, BindingResult result) {
         return service.salvar(larvicida, result);
     }
 
     @GetMapping
-    public List<larvicida> getAll() {
+    public List<Larvicida> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response<larvicida>> getById(@PathVariable Long id) {
+    public ResponseEntity<Response<Larvicida>> getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @PutMapping
-    public ResponseEntity<Response<larvicida>> put(@Valid @RequestBody larvicida larvicida, BindingResult result) {
+    public ResponseEntity<Response<Larvicida>> put(@Valid @RequestBody Larvicida larvicida, BindingResult result) {
         return service.salvar(larvicida, result);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response<larvicida>> delete(@PathVariable Long id) {
+    public ResponseEntity<Response<Larvicida>> delete(@PathVariable Long id) {
         return service.deleteById(id);
     }
 }
