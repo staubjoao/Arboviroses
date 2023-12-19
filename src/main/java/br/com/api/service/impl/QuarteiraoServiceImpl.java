@@ -5,12 +5,14 @@ import br.com.api.repository.QuarteiraoRepository;
 import br.com.api.responses.Response;
 import br.com.api.service.QuarteiraoService;
 import jakarta.validation.Valid;
+import org.geolatte.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
+import java.awt.*;
 import java.util.List;
 
 @Component
@@ -21,7 +23,9 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
     @Override
     public ResponseEntity<Response<Quarteirao>> salvar(@Valid Quarteirao quarteirao, BindingResult result) {
         Response<Quarteirao> response = new Response<Quarteirao>();
+
         response.setData(quarteirao);
+
         if (result.hasErrors()) {
             for (ObjectError erros : result.getAllErrors()) {
                 response.getErrors().add(erros.getDefaultMessage());
