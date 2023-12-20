@@ -6,6 +6,8 @@ import br.com.api.responses.Response;
 import br.com.api.service.QuarteiraoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
@@ -22,13 +24,21 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
     public ResponseEntity<Response<Quarteirao>> salvar(@Valid Quarteirao quarteirao, BindingResult result) {
         Response<Quarteirao> response = new Response<Quarteirao>();
         response.setData(quarteirao);
+
+        String poligonoWkt = quarteirao.polygonToWkt();
+
         if (result.hasErrors()) {
             for (ObjectError erros : result.getAllErrors()) {
                 response.getErrors().add(erros.getDefaultMessage());
             }
             return ResponseEntity.badRequest().body(response);
         }
-        repository.save(quarteirao);
+        try {
+            repository.salvarQuarteirao(quarteirao.getId(), quarteirao.getNumero(), quarteirao.getLocalidade().getId(), poligonoWkt);
+        } catch (DataAccessException e) {
+            response.getErrors().add("Erro ao salvar no banco de dados: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
         return ResponseEntity.ok(response);
     }
 
