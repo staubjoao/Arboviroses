@@ -23,11 +23,10 @@ public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer>
     List<Quarteirao> findQuarteiroesByUsuarioId(@Param("usuarioId") Long usuarioId);
 
     @Modifying
-    @Query(value = "INSERT INTO quarteirao (quarteirao_id, numero, fk_localidade_id, poligono) " +
-            "VALUES (:quarteiraoId, :numero, :localidadeId, ST_GeomFromText(:poligonoWkt, 4326))", nativeQuery = true)
+    @Query(value = "INSERT INTO quarteirao (numero, fk_localidade_id, poligono) " +
+            "VALUES (:numero, :localidadeId, ST_GeomFromText(:poligonoWkt, 4326))", nativeQuery = true)
     @Transactional
-    void salvarQuarteirao(@Param("quarteiraoId") Integer quarteiraoId,
-                          @Param("numero") Integer numero,
+    void salvarQuarteirao(@Param("numero") Integer numero,
                           @Param("localidadeId") Integer localidadeId,
                           @Param("poligonoWkt") String poligonoWkt);
 

@@ -32,7 +32,7 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
             return ResponseEntity.badRequest().body(response);
         }
         try {
-            repository.salvarQuarteirao(quarteirao.getId(), quarteirao.getNumero(), quarteirao.getLocalidade().getId(), quarteirao.getPoligono());
+            repository.salvarQuarteirao(quarteirao.getNumero(), quarteirao.getLocalidade().getId(), quarteirao.getPoligono());
         } catch (DataAccessException e) {
             response.getErrors().add("Erro ao salvar no banco de dados: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
