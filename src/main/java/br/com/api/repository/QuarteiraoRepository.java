@@ -2,10 +2,12 @@ package br.com.api.repository;
 
 import br.com.api.model.Quarteirao;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import javax.transaction.Transactional;
 
 public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer> {
 
@@ -19,4 +21,15 @@ public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer>
             ") ra ON q.quarteirao_id = ra.fk_quarteirao_id;",
             nativeQuery = true)
     List<Quarteirao> findQuarteiroesByUsuarioId(@Param("usuarioId") Long usuarioId);
+
+    @Modifying
+    @Query(value = "INSERT INTO quarteirao (quarteirao_id, numero, fk_localidade_id, poligono) " +
+            "VALUES (:quarteiraoId, :numero, :localidadeId, ST_GeomFromText(:poligonoWkt, 4326))", nativeQuery = true)
+    @Transactional
+    void salvarQuarteirao(@Param("quarteiraoId") Integer quarteiraoId,
+                          @Param("numero") Integer numero,
+                          @Param("localidadeId") Integer localidadeId,
+                          @Param("poligonoWkt") String poligonoWkt);
+
+
 }
