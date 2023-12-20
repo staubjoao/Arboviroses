@@ -25,8 +25,6 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
         Response<Quarteirao> response = new Response<Quarteirao>();
         response.setData(quarteirao);
 
-        String poligonoWkt = quarteirao.polygonToWkt();
-
         if (result.hasErrors()) {
             for (ObjectError erros : result.getAllErrors()) {
                 response.getErrors().add(erros.getDefaultMessage());
@@ -34,7 +32,7 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
             return ResponseEntity.badRequest().body(response);
         }
         try {
-            repository.salvarQuarteirao(quarteirao.getId(), quarteirao.getNumero(), quarteirao.getLocalidade().getId(), poligonoWkt);
+            repository.salvarQuarteirao(quarteirao.getId(), quarteirao.getNumero(), quarteirao.getLocalidade().getId(), quarteirao.getPoligono());
         } catch (DataAccessException e) {
             response.getErrors().add("Erro ao salvar no banco de dados: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
@@ -44,7 +42,7 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
 
     @Override
     public List<Quarteirao> getAll() {
-        return repository.findAll();
+        return repository.findAllQuarteiroes();
     }
 
     @Override

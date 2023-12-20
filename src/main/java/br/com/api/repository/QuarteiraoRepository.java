@@ -31,5 +31,10 @@ public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer>
                           @Param("localidadeId") Integer localidadeId,
                           @Param("poligonoWkt") String poligonoWkt);
 
+    @Query(value = "SELECT quarteirao_id, numero, fk_localidade_id, ST_AsText(poligono) AS poligono FROM quarteirao;", nativeQuery = true)
+    List<Quarteirao> findAllQuarteiroes();
+
+
+
 
 }
