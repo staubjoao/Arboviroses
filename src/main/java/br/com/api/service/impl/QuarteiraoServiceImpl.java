@@ -41,6 +41,26 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
     }
 
     @Override
+    public ResponseEntity<Response<Quarteirao>> alterar(@Valid Quarteirao quarteirao, BindingResult result) {
+        Response<Quarteirao> response = new Response<Quarteirao>();
+        response.setData(quarteirao);
+
+        if (result.hasErrors()) {
+            for (ObjectError erros : result.getAllErrors()) {
+                response.getErrors().add(erros.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(response);
+        }
+        try {
+            repository.alterarQuarteirao(quarteirao.getId(), quarteirao.getNumero(), quarteirao.getLocalidade().getId(), quarteirao.getPoligono());
+        } catch (DataAccessException e) {
+            response.getErrors().add("Erro ao salvar no banco de dados: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
     public List<Quarteirao> getAll() {
         return repository.findAllQuarteiroes();
     }

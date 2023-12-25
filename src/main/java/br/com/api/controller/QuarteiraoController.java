@@ -41,7 +41,7 @@ public class QuarteiraoController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Quarteirao>> put(@Valid @RequestBody Quarteirao quarteirao, BindingResult result) {
-        return service.salvar(quarteirao, result);
+        return service.alterar(quarteirao, result);
     }
 
     @DeleteMapping("/{id}")

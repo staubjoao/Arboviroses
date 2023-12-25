@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public interface QuarteiraoService {
     ResponseEntity<Response<Quarteirao>> salvar(@Valid @RequestBody Quarteirao quarteirao, BindingResult result);
+    ResponseEntity<Response<Quarteirao>> alterar(@Valid @RequestBody Quarteirao quarteirao, BindingResult result);
     List<Quarteirao> getAll();
     ResponseEntity<Response<Quarteirao>> getById(Integer id);
     ResponseEntity<Response<Quarteirao>> deleteById(Integer id);
