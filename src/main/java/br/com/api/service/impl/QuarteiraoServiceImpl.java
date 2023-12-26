@@ -100,4 +100,10 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
     public List<Quarteirao> getByUsuario(Long id) {
         return repository.findQuarteiroesByUsuarioId(id);
     }
+
+    @Override
+    public List<Quarteirao> getByLocalidade(Long id) {
+        return repository.findQuarteiroesByLocalidadeId(id);
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+import javax.ws.rs.Path;
 import java.util.List;
 
 @RestController
@@ -52,8 +53,13 @@ public class QuarteiraoController {
 
     @GetMapping("/agente/{usuarioId}")
     @ResponseStatus(HttpStatus.OK)
-    private List<Quarteirao> getByQuarteirao(@PathVariable Long usuarioId)
-    {
+    private List<Quarteirao> getQuarteiraoByAgente(@PathVariable Long usuarioId) {
         return service.getByUsuario(usuarioId);
+    }
+
+    @GetMapping("/localidade/{localidadeId}")
+    @ResponseStatus(HttpStatus.OK)
+    private List<Quarteirao> getQuarteiraoByLocalidade(@PathVariable Long localidadeId) {
+        return service.getByLocalidade(localidadeId);
     }
 }

@@ -18,4 +18,6 @@ public interface QuarteiraoService {
     ResponseEntity<Response<Quarteirao>> getById(Integer id);
     ResponseEntity<Response<Quarteirao>> deleteById(Integer id);
     List<Quarteirao> getByUsuario(Long id);
+
+    List<Quarteirao> getByLocalidade(Long id);
 }
