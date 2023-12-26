@@ -1,10 +1,12 @@
 package br.com.api.service.impl;
 
+import br.com.api.dtos.CentroLocalidadeDTO;
 import br.com.api.model.Quarteirao;
 import br.com.api.repository.QuarteiraoRepository;
 import br.com.api.responses.Response;
 import br.com.api.service.QuarteiraoService;
 import jakarta.validation.Valid;
+import org.geolatte.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -104,6 +106,18 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
     @Override
     public List<Quarteirao> getByLocalidade(Long id) {
         return repository.findQuarteiroesByLocalidadeId(id);
+    }
+
+    @Override
+    public CentroLocalidadeDTO getCentroLocalidade(Long id) {
+        String pontoCentralText = repository.findCentroLocalidade(id);
+
+        if (pontoCentralText != null) {
+            CentroLocalidadeDTO centroLocalidadeDTO = new CentroLocalidadeDTO(pontoCentralText);
+            return centroLocalidadeDTO;
+        } else {
+            return null;
+        }
     }
 
 }

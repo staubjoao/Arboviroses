@@ -1,5 +1,6 @@
 package br.com.api.controller;
 
+import br.com.api.dtos.CentroLocalidadeDTO;
 import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
 import br.com.api.service.impl.QuarteiraoServiceImpl;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
-import javax.ws.rs.Path;
 import java.util.List;
 
 @RestController
@@ -61,5 +61,11 @@ public class QuarteiraoController {
     @ResponseStatus(HttpStatus.OK)
     private List<Quarteirao> getQuarteiraoByLocalidade(@PathVariable Long localidadeId) {
         return service.getByLocalidade(localidadeId);
+    }
+
+    @GetMapping("/localidade/{localidadeId}/centro")
+    @ResponseStatus(HttpStatus.OK)
+    private CentroLocalidadeDTO getCentroLocalidade(@PathVariable Long localidadeId) {
+        return service.getCentroLocalidade(localidadeId);
     }
 }

@@ -7,11 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import javax.transaction.Transactional;
 
 public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer> {
 
-    @Modifying
     @Query(value =
             "SELECT q.quarteirao_id, q.numero, q.fk_localidade_id, ST_AsText(q.poligono) AS poligono " +
                     "FROM " +
@@ -24,10 +22,12 @@ public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer>
             nativeQuery = true)
     List<Quarteirao> findQuarteiroesByUsuarioId(@Param("usuarioId") Long usuarioId);
 
-    @Modifying
     @Query(value = "SELECT q.quarteirao_id, q.numero, q.fk_localidade_id, ST_AsText(q.poligono) AS poligono " +
-                    "FROM quarteirao q WHERE q.fk_localidade_id = :localidadeId ;", nativeQuery = true)
+            "FROM quarteirao q WHERE q.fk_localidade_id = :localidadeId ;", nativeQuery = true)
     List<Quarteirao> findQuarteiroesByLocalidadeId(@Param("localidadeId") Long localidadeId);
+
+    @Query(value = "SELECT ST_AsText(ST_Centroid(ST_Collect(poligono))) FROM quarteirao WHERE fk_localidade_id = :localidadeId ;", nativeQuery = true)
+    String findCentroLocalidade(@Param("localidadeId") Long localidadeId);
 
     @Modifying
     @Query(value = "INSERT INTO quarteirao (numero, fk_localidade_id, poligono) " +
