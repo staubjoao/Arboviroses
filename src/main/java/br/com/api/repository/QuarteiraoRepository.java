@@ -30,6 +30,7 @@ public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer>
     @Query(value = "SELECT ST_AsText(ST_Centroid(ST_Collect(poligono))) FROM quarteirao WHERE fk_localidade_id = :localidadeId ;", nativeQuery = true)
     String findCentroLocalidade(@Param("localidadeId") Long localidadeId);
 
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO quarteirao (numero, fk_localidade_id, poligono) " +
@@ -37,6 +38,7 @@ public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer>
     void salvarQuarteirao(@Param("numero") Integer numero,
                           @Param("localidadeId") Integer localidadeId,
                           @Param("poligonoWkt") String poligonoWkt);
+
 
     @Modifying
     @Transactional
@@ -50,5 +52,7 @@ public interface QuarteiraoRepository extends JpaRepository<Quarteirao, Integer>
     @Query(value = "SELECT q.quarteirao_id, q.numero, q.fk_localidade_id, ST_AsText(q.poligono) AS poligono FROM quarteirao q;", nativeQuery = true)
     List<Quarteirao> findAllQuarteiroes();
 
+    @Query(value = "SELECT q.quarteirao_id, q.numero, q.fk_localidade_id, ST_AsText(q.poligono) AS poligono FROM quarteirao q WHERE (quarteirao_id = :quarteiraoId);", nativeQuery = true)
+    Quarteirao findQaurteiraoById(@Param("quarteiraoId") Integer quarteiraoId);
 
 }

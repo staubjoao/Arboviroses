@@ -72,7 +72,7 @@ public class QuarteiraoServiceImpl implements QuarteiraoService {
         Response<Quarteirao> response = new Response<Quarteirao>();
         Quarteirao obj = null;
         try {
-            obj = repository.findById(id).get();
+            obj = repository.findQaurteiraoById(id);
         } catch (NullPointerException ex) {
             response.getErrors().add("Quarteirão inválido");
         } catch (Exception ex) {
