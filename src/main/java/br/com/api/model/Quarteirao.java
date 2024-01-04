@@ -3,6 +3,7 @@ package br.com.api.model;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
 import javax.persistence.*;
 
 @Data
@@ -18,6 +19,9 @@ public class Quarteirao {
     @Valid
     @NotNull(message = "{campo.numero.quarteirao.vazio}")
     private Integer numero;
+
+    @Column(columnDefinition = "GEOMETRY(POLYGON, 4326)")
+    private String poligono;
 
     @ManyToOne
     @JoinColumn(name = "fk_localidade_id")

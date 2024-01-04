@@ -1,5 +1,6 @@
 package br.com.api.controller;
 
+import br.com.api.dtos.CentroLocalidadeDTO;
 import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
 import br.com.api.service.impl.QuarteiraoServiceImpl;
@@ -41,7 +42,7 @@ public class QuarteiraoController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Response<Quarteirao>> put(@Valid @RequestBody Quarteirao quarteirao, BindingResult result) {
-        return service.salvar(quarteirao, result);
+        return service.alterar(quarteirao, result);
     }
 
     @DeleteMapping("/{id}")
@@ -52,8 +53,19 @@ public class QuarteiraoController {
 
     @GetMapping("/agente/{usuarioId}")
     @ResponseStatus(HttpStatus.OK)
-    private List<Quarteirao> getByQuarteirao(@PathVariable Long usuarioId)
-    {
+    private List<Quarteirao> getQuarteiraoByAgente(@PathVariable Long usuarioId) {
         return service.getByUsuario(usuarioId);
+    }
+
+    @GetMapping("/localidade/{localidadeId}")
+    @ResponseStatus(HttpStatus.OK)
+    private List<Quarteirao> getQuarteiraoByLocalidade(@PathVariable Long localidadeId) {
+        return service.getByLocalidade(localidadeId);
+    }
+
+    @GetMapping("/localidade/{localidadeId}/centro")
+    @ResponseStatus(HttpStatus.OK)
+    private CentroLocalidadeDTO getCentroLocalidade(@PathVariable Long localidadeId) {
+        return service.getCentroLocalidade(localidadeId);
     }
 }
