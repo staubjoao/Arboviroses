@@ -23,10 +23,6 @@ public class ImovelController {
     @Autowired
     private QuarteiraoServiceImpl serviceQuarteirao;
 
-    public ImovelController() {
-        // Explicit constructor
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<Response<Imovel>> post(@Valid @RequestBody Imovel imovel, BindingResult result) {
