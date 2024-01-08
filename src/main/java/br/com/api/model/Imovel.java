@@ -30,12 +30,6 @@ public class Imovel {
     @Column
     private String complemento;
 
-    @Column
-    private String latitude;
-
-    @Column
-    private  String longitude;
-
     @ManyToOne
     @JoinColumn(name = "fk_bairro_id")
     private Bairro bairro;
