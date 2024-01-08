@@ -1,12 +1,5 @@
 package br.com.api.service.impl;
 
-import br.com.api.model.Bairro;
-import okhttp3.Request;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import br.com.api.model.Imovel;
 import br.com.api.model.Quarteirao;
 import br.com.api.repository.ImovelRepository;
@@ -19,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
-import java.io.IOException;
 import java.util.List;
 
 @Component
