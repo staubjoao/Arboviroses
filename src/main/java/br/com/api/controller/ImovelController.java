@@ -1,8 +1,10 @@
 package br.com.api.controller;
 
-import br.com.api.model.*;
+import br.com.api.model.Imovel;
+import br.com.api.model.Quarteirao;
 import br.com.api.responses.Response;
-import br.com.api.service.impl.*;
+import br.com.api.service.impl.ImovelServiceImpl;
+import br.com.api.service.impl.QuarteiraoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,11 +56,10 @@ public class ImovelController {
     }
 
     @GetMapping("/quarteirao/{quarteiraoId}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     private List<Imovel> getByQuarteirao(@PathVariable Integer quarteiraoId)
     {
         Quarteirao quarteirao = serviceQuarteirao.getById(quarteiraoId).getBody().getData();
         return service.getByQuateirao(quarteirao);
-        
     }
 }
